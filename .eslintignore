@@ -1,0 +1,8 @@
+.eslintrc.js
+node_modules
+dist
+emsdk
+src/filters/extend/*_.c
+src/filters/extend/*_.js
+src/filters/extend/*_.js.mem
+src/filters/extend/*_.wasm
