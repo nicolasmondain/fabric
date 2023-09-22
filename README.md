@@ -8,6 +8,8 @@ Extension of frabric.js, including additional filters and methods dedicated to i
 ![Issues](https://img.shields.io/github/issues/nicolasmondain/fabric)
 ![License](https://img.shields.io/github/license/nicolasmondain/fabric)
 
+![Output](/out/actionlighten-webgl.png)
+
 ## Installation
 
 ```bash
@@ -84,8 +86,15 @@ If changes have been applied, run the following command line:
 ```bash
 npm run webpack:development
 ```
+![Output](/captures/screencapture-127-0-0-1-5501-test-index-test-html-2023-09-22-23_36_29.png)
 
 >## Notes
+>
+> Ressources :
+> * fabric.js
+> * opencv.js
+> * webGL
+> * WebAssembly
 >
 > ### WebGl
 >

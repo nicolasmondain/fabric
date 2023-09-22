@@ -1,6 +1,6 @@
 {
   "name": "@nicolasmondain/fabric",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Extension of frabric.js, including additional filters and methods dedicated to image processing.",
   "main": "dist/main.js",
   "author": "nicolasmondain",
