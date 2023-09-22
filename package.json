@@ -1,15 +1,18 @@
 {
-  "name": "@sharingbox/fabric",
-  "version": "2.2.31",
-  "description": "Ressources communes (npm) : fabric",
+  "name": "@nicolasmondain/fabric",
+  "version": "3.0.0",
+  "description": "Extension of frabric.js, including additional filters and methods dedicated to image processing.",
   "main": "dist/main.js",
-  "author": "SHARINGBOX SA",
-  "license": "UNLICENSED",
-  "homepage": "https://bitbucket.org/sharingbox/fabric#readme",
+  "author": "nicolasmondain",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://nicolasmondain@bitbucket.org/sharingbox/fabric.git"
+    "url": "git+https://github.com/nicolasmondain/fabric.git"
   },
+	"bugs": {
+    "url": "https://github.com/nicolasmondain/fabric/issues"
+  },
+  "homepage": "https://github.com/nicolasmondain/fabric#readme",
   "babel": {
     "presets": [
       "@babel/preset-env"
@@ -72,5 +75,9 @@
   },
   "dependencies": {
     "regenerator-runtime": "0.13.11"
-  }
+  },
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org"
+	}
 }
