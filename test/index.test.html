@@ -11,14 +11,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<figure>
-						<blockquote class="blockquote">
-							<p>filters</p>
-						</blockquote>
-						<figcaption class="blockquote-footer">
-							Credits <cite title="Unsplash">Unsplash</cite>
-						</figcaption>
-					</figure>
+					<h2>filters</h2>
 					<h2>preview</h2>
 					<div class="my-3">
 						<div class="input-group input-group-sm mb-3">
@@ -46,23 +39,6 @@
 								<canvas id="canvas-webgl"></canvas>
 								<button id="download-webgl" class="mt-2 btn btn-secondary">download</button>
 							</div>
-							<div class="mb-3">
-								<label for="actions" class="form-label">
-									<strong>actions</strong>
-								</label>
-								<textarea class="form-control" name="actions" id="actions-webgl" cols="30" rows="10"></textarea>
-							</div>
-							<button id="apply-webgl" class="btn btn-primary">apply</button>
-							<hr>
-							<div class="mb-3">
-								<p class="small">To add a source (imageData) in the list of actions, drop your image below then copy and paste the result (base 64) generated as a source (imageData).</p>
-								<label for="file" class="form-label">image to base 64</label>
-								<input class="form-control" type="file" id="file-webgl" accept="image/png">
-								<div class="my-3">
-									<button type="button" id="copy-webgl" class="btn btn-primary btn-sm m-2 position-absolute">Copy</button>
-									<textarea class="form-control" name="b64" id="b64-webgl" cols="30" rows="10"></textarea>
-								</div>
-							</div>
 						</div>
 						<div class="col-sm-6" id="col-js">
 							<div id="execution-js-container">
@@ -79,21 +55,23 @@
 								<canvas id="canvas-js"></canvas>
 								<button id="download-js" class="mt-2 btn btn-secondary">download</button>
 							</div>
+						</div>
+						<div class="col-sm-12">
 							<div class="mb-3">
 								<label for="actions" class="form-label">
 									<strong>actions</strong>
 								</label>
-								<textarea class="form-control" name="actions" id="actions-js" cols="30" rows="10"></textarea>
+								<textarea class="form-control" name="actions" id="actions" cols="30" rows="10"></textarea>
 							</div>
-							<button id="apply-js" class="btn btn-primary">apply</button>
+							<button id="apply" class="btn btn-primary">apply</button>
 							<hr>
 							<div class="mb-3">
 								<p class="small">To add a source (imageData) in the list of actions, drop your image below then copy and paste the result (base 64) generated as a source (imageData).</p>
 								<label for="file" class="form-label">image to base 64</label>
-								<input class="form-control" type="file" id="file-js" accept="image/png">
+								<input class="form-control" type="file" id="file" accept="image/png">
 								<div class="my-3">
-									<button type="button" id="copy-js" class="btn btn-primary btn-sm m-2 position-absolute">Copy</button>
-									<textarea class="form-control" name="b64" id="b64-js" cols="30" rows="10"></textarea>
+									<button type="button" id="copy" class="btn btn-primary btn-sm m-2 position-absolute">Copy</button>
+									<textarea class="form-control" name="b64" id="b64" cols="30" rows="10"></textarea>
 								</div>
 							</div>
 						</div>

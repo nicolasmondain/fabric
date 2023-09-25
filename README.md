@@ -15,6 +15,17 @@ Extension of frabric.js, including additional filters and methods dedicated to i
 ```bash
 npm install @nicolasmondain/fabric@latest --save
 ```
+## Supported Versions
+
+Check compatibility between versions of fabric.js and its extension (@nicolasmondain/fabric)
+
+| Version fabric.js | Version @nicolasmondain/fabric| Supported          |
+| ----------------- | ----------------------------- | ------------------ |
+| 5.2.1             | 3.0.1                         | :white_check_mark: |
+| 5.2.3             | 3.0.1                         | :grey_question:    |
+| 5.2.4             | 3.0.1                         | :grey_question:    |
+| 5.3.1             | 3.0.1                         | :grey_question:    |
+| 6.0.x             | 3.0.1                         | :x:                |
 ## Usage
 
 `@nicolasmondain/fabric` is an extension of `fabric.js`.
@@ -24,7 +35,7 @@ extend.js
 
 ```javascript
 
-import {fabric} from 'fabric'; // fabric@5.2.1
+import {fabric} from 'fabric';
 import {Fabric} from '@nicolasmondain/fabric';
 
 const extended = new Fabric(fabric).extend();
@@ -57,10 +68,14 @@ fabric.Image.fromURL(url, (image) => {
 }, {crossOrigin: 'anonymous'});
 
 ```
+
 ### Create a filter
 
 A filter is a sequence of actions.
-It is possible to add a filter (name, test, actions) in the `src/filters/config.ts` file.
+You can use your own filter from the function parameters.
+It is also possible to add a filter (name, test, actions) in the project (`src/filters/config.ts`).
+
+Feel free to contribute: [CONTRIBUTING](CONTRIBUTING.md)
 
 ```js
 arianablack: {
@@ -75,6 +90,16 @@ arianablack: {
 	]
 }
 ```
+#### Available actions
+
+| action | parameters | description
+| ----------------- | ----------------------------- | ------------------
+| 5.2.1             | 3.0.1                         | :white_check_mark:
+| 5.2.3             | 3.0.1                         | :grey_question:
+| 5.2.4             | 3.0.1                         | :grey_question:
+| 5.3.1             | 3.0.1                         | :grey_question:
+| 6.0.x             | 3.0.1                         | :x:
+
 ### Test
 
 To test the filters (and the actions that compose them), it is necessary to launch the test page `test/index.test.html` in a server (under __vscode__, right click: _open with Live Server_ if the extension _LiveServer_ is installed).

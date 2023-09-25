@@ -139,32 +139,35 @@ let onChangeJS    = null;
 let onClickWebGL  = null;
 let onClickJS     = null;
 
+const ACTIONS = document.getElementById('actions');
+const FILE    = document.getElementById('file');
+const APPLY   = document.getElementById('apply');
+const COPY    = document.getElementById('copy');
+const B64     = document.getElementById('b64');
+
+ACTIONS.value = actions;
+
+COPY.addEventListener('click', () => copy(B64));
+FILE.addEventListener('change', () => file(FILE, B64));
+
+
 const WEBGL_EXTENDED  = new extendedfabric.Fabric(fabricWebGL, 'webgl').extend(); // eslint-disable-line no-undef
 const WEBGL_CANVAS    = new WEBGL_EXTENDED.Canvas('canvas-webgl', {backgroundColor: '#eaecef'});
 const WEBGL_CONTAINER = document.getElementById('canvas-container-webgl');
-const WEBGL_ACTIONS   = document.getElementById('actions-webgl');
-const WEBGL_APPLY     = document.getElementById('apply-webgl');
+
 const WEBGL_SELECT    = document.getElementById('select-webgl');
 const WEBGL_EXECUTION = document.getElementById('execution-webgl');
-const WEBGL_FILE      = document.getElementById('file-webgl');
-const WEBGL_COPY      = document.getElementById('copy-webgl');
-const WEBGL_B64       = document.getElementById('b64-webgl');
 const WEBGL_DOWNLOAD  = document.getElementById('download-webgl');
 const WEBGL_RATIO     = canvas.width / WEBGL_CONTAINER.offsetWidth;
 const WEBGL_SPINNER   = document.getElementById('spinner-webgl');
-const WEBGL_FILTERS   = Object.keys(WEBGL_EXTENDED.extendedfilters.config);
+const WEBGL_FILTERS   = Object.keys(WEBGL_EXTENDED.extendedfilters.config).sort();
 const WEBGL_INCR_OPTS = getincrustationoptions(incrustation, gethomothetic(shoot.width, shoot.height, incrustation.w, incrustation.h), shoot, WEBGL_RATIO);
 
 const JS_EXTENDED     = new extendedfabric.Fabric(fabricJS, 'js').extend(); // eslint-disable-line no-undef
 const JS_CANVAS       = new JS_EXTENDED.Canvas('canvas-js', {backgroundColor: '#eaecef'});
 const JS_CONTAINER    = document.getElementById('canvas-container-js');
-const JS_ACTIONS      = document.getElementById('actions-js');
-const JS_APPLY        = document.getElementById('apply-js');
 const JS_SELECT       = document.getElementById('select-js');
 const JS_EXECUTION    = document.getElementById('execution-js');
-const JS_FILE         = document.getElementById('file-js');
-const JS_COPY         = document.getElementById('copy-js');
-const JS_B64          = document.getElementById('b64-js');
 const JS_DOWNLOAD     = document.getElementById('download-js');
 const JS_RATIO        = canvas.width / JS_CONTAINER.offsetWidth;
 const JS_SPINNER      = document.getElementById('spinner-js');
@@ -172,10 +175,7 @@ const JS_FILTERS      = Object.keys(JS_EXTENDED.extendedfilters.config);
 const JS_INCR_OPTS    = getincrustationoptions(incrustation, gethomothetic(shoot.width, shoot.height, incrustation.w, incrustation.h), shoot, JS_RATIO);
 
 WEBGL_CANVAS.ratio  = WEBGL_RATIO;
-WEBGL_ACTIONS.value = actions;
-
 JS_CANVAS.ratio     = JS_RATIO;
-JS_ACTIONS.value    = actions;
 
 WEBGL_CANVAS.setDimensions({width: canvas.width / WEBGL_RATIO, height: canvas.height / WEBGL_RATIO});
 
@@ -204,12 +204,8 @@ for(let i = 0; i < JS_FILTERS.length; i += 1){
 }
 
 WEBGL_DOWNLOAD.addEventListener('click', () => download(WEBGL_CANVAS, WEBGL_RATIO, WEBGL_SELECT, 'webgl'));
-WEBGL_COPY.addEventListener('click', () => copy(WEBGL_B64));
-WEBGL_FILE.addEventListener('change', () => file(WEBGL_FILE, WEBGL_B64));
-
 JS_DOWNLOAD.addEventListener('click', () => download(JS_CANVAS, JS_RATIO, JS_SELECT, 'js'));
-JS_COPY.addEventListener('click', () => copy(JS_B64));
-JS_FILE.addEventListener('change', () => file(JS_FILE, JS_B64));
+
 
 WEBGL_EXTENDED.Image.fromURL('./img/SHOOT-0.jpg', (image) => {
 
@@ -241,7 +237,7 @@ WEBGL_EXTENDED.Image.fromURL('./img/SHOOT-0.jpg', (image) => {
 
 					});
 
-					WEBGL_ACTIONS.value = JSON.stringify(confactions, null, 2);
+					ACTIONS.value = JSON.stringify(confactions, null, 2);
 
 					WEBGL_SPINNER.classList.add('d-none');
 
@@ -263,7 +259,7 @@ WEBGL_EXTENDED.Image.fromURL('./img/SHOOT-0.jpg', (image) => {
 
 		window.setTimeout(() => {
 
-			let text = WEBGL_ACTIONS.value;
+			let text = ACTIONS.value;
 
 			try{
 
@@ -297,7 +293,7 @@ WEBGL_EXTENDED.Image.fromURL('./img/SHOOT-0.jpg', (image) => {
 
 					});
 
-					WEBGL_ACTIONS.value = JSON.stringify(confactions, null, 2);
+					ACTIONS.value = JSON.stringify(confactions, null, 2);
 
 					WEBGL_SPINNER.classList.add('d-none');
 
@@ -315,7 +311,8 @@ WEBGL_EXTENDED.Image.fromURL('./img/SHOOT-0.jpg', (image) => {
 
 	WEBGL_CANVAS.add(image);
 	WEBGL_SELECT.addEventListener('change', onChangeWebGL);
-	WEBGL_APPLY.addEventListener('click', onClickWebGL);
+
+	APPLY.addEventListener('click', onClickWebGL);
 
 }, WEBGL_INCR_OPTS);
 
@@ -349,7 +346,7 @@ JS_EXTENDED.Image.fromURL('./img/SHOOT-0.jpg', (image) => {
 
 					});
 
-					JS_ACTIONS.value = JSON.stringify(confactions, null, 2);
+					ACTIONS.value = JSON.stringify(confactions, null, 2);
 
 					JS_SPINNER.classList.add('d-none');
 
@@ -371,7 +368,7 @@ JS_EXTENDED.Image.fromURL('./img/SHOOT-0.jpg', (image) => {
 
 		window.setTimeout(() => {
 
-			let text = JS_ACTIONS.value;
+			let text = ACTIONS.value;
 
 			try{
 
@@ -405,7 +402,7 @@ JS_EXTENDED.Image.fromURL('./img/SHOOT-0.jpg', (image) => {
 
 					});
 
-					JS_ACTIONS.value = JSON.stringify(confactions, null, 2);
+					ACTIONS.value = JSON.stringify(confactions, null, 2);
 
 					JS_SPINNER.classList.add('d-none');
 
@@ -423,7 +420,8 @@ JS_EXTENDED.Image.fromURL('./img/SHOOT-0.jpg', (image) => {
 
 	JS_CANVAS.add(image);
 	JS_SELECT.addEventListener('change', onChangeJS);
-	JS_APPLY.addEventListener('click', onClickJS);
+
+	APPLY.addEventListener('click', onClickJS);
 
 }, JS_INCR_OPTS);
 
