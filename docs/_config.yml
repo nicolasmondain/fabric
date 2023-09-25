@@ -30,6 +30,7 @@ github_username:  nicolasmondain
 theme: just-the-docs
 plugins:
   - jekyll-feed
+  - jekyll-openmoji
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -64,5 +65,11 @@ aux_links:
 
 # Makes Aux links open in a new tab. Default is false
 aux_links_new_tab: true
-
 gh_edit_branch: "master"
+compress_html:
+  ignore:
+    envs: all
+kramdown:
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true

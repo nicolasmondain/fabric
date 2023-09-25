@@ -1,14 +1,12 @@
 ---
 layout: default
-title: Use custom filters
-permalink: /filters/custom
-nav_order: 1
+title: Custom filters
+permalink: /demo/filters/custom
+nav_order: 2
 nav_exclude: false
 parent: Filters
-js:
-  - ../../dist/main.js
-  - ../assets/js/filters-custom.js
+grand_parent: Demo
 ---
 
-<h1>Use custom filters</h1>
+<h1>Custom filters</h1>
 

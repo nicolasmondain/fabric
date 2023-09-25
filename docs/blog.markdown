@@ -2,7 +2,7 @@
 layout: default
 title: Articles
 permalink: /articles/
-nav_order: 2
+nav_order: 4
 nav_exclude: false
 ---
 

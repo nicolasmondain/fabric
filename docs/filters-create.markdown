@@ -1,13 +1,11 @@
 ---
 layout: default
 title: Create filters
-permalink: /filters/create
-nav_order: 1
+permalink: /demo/filters/create
+nav_order: 3
 nav_exclude: false
 parent: Filters
-js:
-  - ../../dist/main.js
-  - ../assets/js/filters-create.js
+grand_parent: Demo
 ---
 
 <h1>Create filters</h1>
