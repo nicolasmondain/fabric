@@ -45,9 +45,9 @@ We can then use `fabric` in the standard way by importing the _extended_ object 
 ```javascript
 import fabric from './extend.js';
 
-const FILTER_NAME       = 'beautyfilter';
+const FILTER_NAME       = 'blackandwhite';
 const FILTER_FILES      = [];
-const FILTER_FILES_PATH = '../assets/filters/img/';
+const FILTER_FILES_PATH = '';
 const FILTER_ACTIONS    = [];
 
 const canvas = new fabric.Canvas('canvas');
