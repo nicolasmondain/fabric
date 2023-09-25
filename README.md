@@ -1,6 +1,6 @@
 # fabric
 
-Extension of frabric.js, including additional filters and methods dedicated to image processing.
+Extension of fabric.js, including additional filters and methods dedicated to image processing.
 
 ![Version](https://img.shields.io/github/package-json/version/nicolasmondain/fabric)
 ![Downloads](https://img.shields.io/npm/dm/@nicolasmondain/fabric.svg)
