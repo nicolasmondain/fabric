@@ -6,7 +6,7 @@ nav_order: 1
 nav_exclude: false
 parent: Filters
 js:
-  - ../../../dist/main.js
+  - ../../dist/main.js
   - ../assets/js/filters-standard.js
 ---
 
