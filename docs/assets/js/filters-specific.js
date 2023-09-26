@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		}
 
-		FABRIC.Image.fromURL('https://raw.githubusercontent.com/nicolasmondain/fabric/master/test/img/SHOOT-0.jpg', (image) => {
+		FABRIC.Image.fromURL('https://raw.githubusercontent.com/nicolasmondain/fabric/master/docs/assets/img/SHOOT-0.jpg', (image) => {
 
 			CANVAS.add(image);
 			CANVAS.renderAll();
