@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const incrustation = {a: 0, x: 100, y: 100, w: 1000, h: 1000};
 		const ratio        = canvas.width / HTMLCanvasElement.offsetWidth;
 
-		const FABRIC   = new extendedfabric.Fabric(fabric, 'webgl').extend(); // eslint-disable-line no-undef
+		const FABRIC   = new fabricExtend.Fabric(fabric, 'webgl').extend(); // eslint-disable-line no-undef
 		const CANVAS   = new FABRIC.Canvas(HTMLCanvasElement, {backgroundColor: '#eaecef'});
 		const CONFIG   = Object.keys(FABRIC.extendedfilters.config);
 		const STANDARD = CONFIG.filter((c) => FABRIC.extendedfilters.config[c].type === 'standard').sort();
