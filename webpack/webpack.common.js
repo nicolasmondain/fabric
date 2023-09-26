@@ -19,7 +19,7 @@ const configuration = {
 		libraryTarget : 'umd',
 		umdNamedDefine: true,
 		globalObject  : 'this',
-		library       : 'extendedfabric'
+		library       : 'fabricExtend'
 
 	},
 	module: {

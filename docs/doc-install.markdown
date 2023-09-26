@@ -65,3 +65,14 @@ fabric.Image.fromURL(url, (image) => {
 }, {crossOrigin: 'anonymous'});
 
 ```
+By using the script tag:
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js" integrity="sha512-CeIsOAsgJnmevfCi2C7Zsyy6bQKi43utIjdA87Q0ZY84oDqnI0uwfM9+bKiIkI75lUeI00WG/+uJzOmuHlesMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="../node_modules/@nicolasmondain/fabric/dist/main.js"></script>
+<script>
+
+	const Fabric = new fabricExtend.Fabric(fabric, 'webgl').extend();
+
+</script>
+```
