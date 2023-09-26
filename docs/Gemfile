@@ -9,7 +9,7 @@ source "https://rubygems.org"
 # Happy Jekylling!
 gem "jekyll", "~> 4.3.2"
 gem "just-the-docs"
-gem 'jekyll-openmoji'
+gem "jekyll-openmoji"
 gem "jekyll-default-layout"
 
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
