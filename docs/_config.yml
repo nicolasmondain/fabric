@@ -52,6 +52,8 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+include:
+  - _includes/
 
 # https://just-the-docs.com/docs/configuration/
 mermaid:
