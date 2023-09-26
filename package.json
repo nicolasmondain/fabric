@@ -52,7 +52,7 @@
     "babel-loader": "8.2.3",
     "chai": "4.3.4",
     "chai-as-promised": "7.1.1",
-    "copy-webpack-plugin": "10.2.4",
+    "copy-webpack-plugin": "11.0.0",
     "eslint": "8.2.0",
     "eslint-plugin-import": "2.25.4",
     "eslint-plugin-node": "11.1.0",
