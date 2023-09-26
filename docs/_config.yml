@@ -54,6 +54,7 @@ plugins:
 #   - vendor/ruby/
 include:
   - _includes/
+  - includes/
 
 # https://just-the-docs.com/docs/configuration/
 mermaid:
