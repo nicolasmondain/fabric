@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: fabric
+title: fabric.extend
 # email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   Extension of fabric.js, including additional filters and methods dedicated to image processing.

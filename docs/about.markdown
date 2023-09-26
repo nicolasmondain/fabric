@@ -10,5 +10,5 @@ nav_exclude: false
 
 <p class="fs-6 fw-300">Extension of fabric.js, including additional <a href="/demo/filters">filters</a> and methods dedicated to image processing.</p>
 
-[npm install](https://www.npmjs.com/package/@nicolasmondain/fabric){: .btn .btn-purple }
-[documentation](/documentation/){: .btn }
+[npm install](/doc/install){: .btn .btn-purple }
+[documentation](/doc/){: .btn }
