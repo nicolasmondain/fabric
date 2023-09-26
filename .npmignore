@@ -1,6 +1,8 @@
-dist/filters/img/test1.png
-dist/filters/img/test2.png
-dist/filters/img/test3.png
-dist/filters/img/test4.png
-dist/filters/img/test5.png
-dist/filters/img/test6.png
+.env
+.vscode
+emsdk
+node_modules
+captures
+docs
+out
+test
