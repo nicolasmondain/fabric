@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const HTMLCanvasElement = document.querySelector('canvas');
 	const HTMLSelectElement = document.querySelector('select');
+	const HTMLPreElement    = document.querySelector('pre');
 
 	if(HTMLCanvasElement){
 
@@ -105,12 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 				const conf = FABRIC.extendedfilters.getconf(HTMLSelectElement.value, [], '../../assets/img/');
 
-				console.log(conf);
-
 				FABRIC.extendedfilters.apply(image, conf).then(() => {
 
 					image.applyFilters();
 					CANVAS.renderAll();
+
+					HTMLPreElement.innerHTML = JSON.stringify(FABRIC.extendedfilters.config[HTMLSelectElement.value], null, 2);
 
 				}).catch((error) => {
 

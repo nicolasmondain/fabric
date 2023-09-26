@@ -1,7 +1,7 @@
 # Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners of this repository before making a change. 
+email, or any other method with the owners of this repository before making a change.
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
 We want to make contributing to this project as easy and transparent as possible, whether it's:
@@ -34,16 +34,16 @@ We use GitHub issues to track public bugs. Report a bug by opening a new [issue]
 We use github to host code, to track issues and feature requests, as well as accept pull requests.
 
 ## We Use [Github Flow](https://guides.github.com/introduction/flow/index.html)
-Pull requests are the best way to propose changes to the codebase (we use [Github Flow](https://guides.github.com/introduction/flow/index.html)). 
+Pull requests are the best way to propose changes to the codebase (we use [Github Flow](https://guides.github.com/introduction/flow/index.html)).
 We actively welcome your pull requests:
 
 1. Fork the repo and create your branch from `master`.
-2. Ensure any install or build dependencies are removed before the end of the layer when doing a 
+2. Ensure any install or build dependencies are removed before the end of the layer when doing a
    build.
 3. If you've added code that should be tested, add tests.
 4. Update the README.md with details of changes
 5. Ensure the test suite passes.
-6. Make sure your code lints (@nicolasmondain/eslint-config)
+6. Make sure your code lints ([@nicolasmondain/eslint-config](https://www.npmjs.com/package/@nicolasmondain/eslint-config))
 7. Issue that pull request!
 
 ## Any contributions you make will be under the MIT Software License

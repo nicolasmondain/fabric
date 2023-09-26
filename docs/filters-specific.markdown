@@ -2,7 +2,7 @@
 layout: default
 title: Specific filters
 permalink: /demo/filters/specific
-nav_order: 2
+nav_order: 1
 nav_exclude: false
 parent: Filters
 grand_parent: Demo
@@ -16,6 +16,7 @@ js:
 
 <h1>Specific filters</h1>
 <select></select>
-<canvas width="500px;" height="1000px;" style="border:solid 1px black;">
+<canvas width="500px;" height="1000px;" style="border:solid 1px black;"></canvas>
+<pre class="code-example" width="500px;" style="font-size:9px;"></pre>
 
 

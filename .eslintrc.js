@@ -11,7 +11,7 @@ module.exports = {
 
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-		'@sharingbox/eslint-config'
+		'@nicolasmondain/eslint-config'
 
   ],
 	parserOptions: {

@@ -39,7 +39,7 @@
     "@babel/node": "7.16.0",
     "@babel/preset-env": "7.16.0",
     "@babel/register": "7.17.7",
-    "@sharingbox/eslint-config": "2.0.28",
+    "@nicolasmondain/eslint-config": "2.0.28",
     "@types/chai": "4.2.22",
     "@types/chai-as-promised": "7.1.4",
     "@types/emscripten": "1.39.6",

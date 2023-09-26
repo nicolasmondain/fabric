@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const HTMLCanvasElement = document.querySelector('canvas');
 	const HTMLSelectElement = document.querySelector('select');
+	const HTMLPreElement    = document.querySelector('pre');
 
 	if(HTMLCanvasElement){
 
@@ -103,14 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			HTMLSelectElement.addEventListener('change', () => {
 
-				const conf = FABRIC.extendedfilters.getconf(HTMLSelectElement.value, [{index: 1, type: 'SHOOT', src: 'https://raw.githubusercontent.com/nicolasmondain/fabric/master/test/img/SHOOT-1.jpg'}], '../../assets/img/');
-
-				console.log(conf);
+				const conf = FABRIC.extendedfilters.getconf(HTMLSelectElement.value, [], '../../assets/img/');
 
 				FABRIC.extendedfilters.apply(image, conf).then(() => {
 
 					image.applyFilters();
 					CANVAS.renderAll();
+
+					HTMLPreElement.innerHTML = JSON.stringify(FABRIC.extendedfilters.config[HTMLSelectElement.value], null, 2);
 
 				}).catch((error) => {
 

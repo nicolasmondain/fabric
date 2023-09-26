@@ -1,9 +1,8 @@
+_includes
 .env
 .vscode
+docs
 emsdk
 node_modules
-captures
-docs
-out
+opencv
 test
-_includes

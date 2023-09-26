@@ -1,0 +1,50 @@
+---
+layout: post
+title:  "Create both WebGl and JavaScript methods"
+date:   2023-09-25 11:14:45 +0200
+categories: contributing
+---
+
+**`webGL` and `JavaScript` code must match.**
+
+* Each action corresponds to a file in `src/filters/extend/`.
+* In each file, the `webGL` _shader_ can be modified in `fragmentSource`.
+
+Also, you must always ensure that the processing applied to the image in the `webGL` _shader_ corresponds to the `JavaScript` processing (`applyTo2d` method).
+
+> *notes:*
+>
+> *Some treatments could not be developed in `webGL`.*
+> *In these specific cases, the configuration file indicates that we will force the use of `JavaScript` processing regardless of the browser*
+>
+>``` javascript
+> beautyfilter: {
+>
+> 		name   : 'beautyfilter',
+> 		test   : false,
+> 		active : false,
+> 		type   : 'specific',
+> 		force  : 'js', // enforce JavaScript processing
+> 		medias : 'standard',
+> 		actions: [
+>
+> 			{name: 'beautyfilter', parameters: {imageData2: 'beauty.png'}}
+>
+> 		]
+> 	},
+>
+>```
+
+`webGL` processing is used under _Windows_ (browser different from _Safari_) by default. While `JavaScript` processing is used under _Safari_ (_iPhone_ and _iPad_: which cannot generate as many `webGL` contexts as necessary).
+
+Error generated with _Safari_
+
+```bash
+There are too many active WebGL contexts on this page, the oldest context will be lost.
+
+TypeError
+Argument 1 ('shader') to WebGLRenderingContext.shaderSource must be an instance of WebGLShader
+shaderSource@[native code]
+```
+- [https://webglfundamentals.org/webgl/lessons/fr/webgl-how-it-works.html](https://webglfundamentals.org/webgl/lessons/fr/webgl-how-it-works.html)
+- [https://webglfundamentals.org/webgl/lessons/fr/webgl-shaders-and-glsl.html](https://webglfundamentals.org/webgl/lessons/fr/webgl-shaders-and-glsl.html)

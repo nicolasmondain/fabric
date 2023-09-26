@@ -2,7 +2,7 @@
 layout: default
 title: Standard filters
 permalink: /demo/filters/standard
-nav_order: 1
+nav_order: 0
 nav_exclude: false
 parent: Filters
 grand_parent: Demo
@@ -16,4 +16,5 @@ js:
 
 <h1>Standard filters</h1>
 <select></select>
-<canvas width="500px;" height="1000px;" style="border:solid 1px black;">
+<canvas width="500px;" height="1000px;" style="border:solid 1px black;"></canvas>
+<pre class="code-example" width="500px;" style="font-size:9px;"></pre>

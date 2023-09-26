@@ -31,7 +31,6 @@ github_username:  nicolasmondain
 remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-feed
-  - jekyll-openmoji
   - jekyll-default-layout
 
 # Exclude from processing.
@@ -79,4 +78,4 @@ compress_html:
 kramdown:
   syntax_highlighter_opts:
     block:
-      line_numbers: true
+      line_numbers: false

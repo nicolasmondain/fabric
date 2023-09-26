@@ -14,24 +14,21 @@ npm install @nicolasmondain/fabric@latest --save
 ```
 ## Supported Versions
 
-Check compatibility between versions of `fabric.js` and `@nicolasmondain/fabric`
-
-| Version `fabric.js` | Version `@nicolasmondain/fabric` | Supported          |
-| ------------------- | -------------------------------- | ------------------ |
-| 5.2.1               | 3.0.1                            | :white_check_mark: |
-| 5.2.3               | 3.0.1                            | :grey_question:    |
-| 5.2.4               | 3.0.1                            | :grey_question:    |
-| 5.3.1               | 3.0.1                            | :grey_question:    |
-| 6.0.x               | 3.0.1                            | :x:                |
+| Version `fabric.js` | Version `fabric.extend` | Supported |
+| ------------------- | ----------------------- | --------- |
+| 5.2.1               | 3.0.1                   | ✅        |
+| 5.2.3               | 3.0.1                   | ✅        |
+| 5.2.4               | 3.0.1                   | ✅        |
+| 5.3.1               | 3.0.1                   | ✅        |
+| 6.0.x               | 3.0.1                   | ❌        |
 
 ## Usage
 
-`@nicolasmondain/fabric` is an extension of `fabric.js`.
-To use it, we need to import `fabric` into it, then return its instance after it has been _extended_.
-
-extend.js
+`fabric.extend` is an extension of `fabric.js`.
+To use it, we need to pass `fabric.js` as a parameter, then return its instance (after it has been _extended_).
 
 ```javascript
+// extend.js
 
 import {fabric} from 'fabric';
 import {Fabric} from '@nicolasmondain/fabric';
@@ -40,9 +37,11 @@ const extended = new Fabric(fabric).extend();
 
 export default extended;
 ```
-We can then use `fabric` in the standard way by importing the _extended_ object as follows:
+We can then use `fabric.js` in the standard way by importing the _extended_ object as follows:
 
 ```javascript
+// index.js
+
 import fabric from './extend.js';
 
 const FILTER_NAME       = 'blackandwhite';
