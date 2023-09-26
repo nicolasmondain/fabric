@@ -49,50 +49,6 @@ export class Filters {
 
 	}
 
-	static fetch(method: string, api: string, body?: string): Promise<Response>{
-
-		return new Promise((resolve, reject) => {
-
-			fetch(`http://localhost:8085/${api}`, {method, body})
-			.then((response) => {
-
-				if(response.status === 200){
-
-					resolve(response);
-
-				}
-
-				reject(new Error(JSON.stringify(response)));
-
-			})
-			.catch((error) => {
-
-				reject(error);
-
-			});
-
-		});
-
-	}
-
-	serverpreload(paths: Array<string>): Promise<Response>{
-
-		return Filters.fetch('POST', 'initSeveralImgsWithPaths', JSON.stringify(paths));
-
-	}
-
-	serverapply(body: string){
-
-		return Filters.fetch('POST', 'applyFilterAndAlwaysGetPNG', body);
-
-	}
-
-	serverfreememory(): Promise<Response>{
-
-		return Filters.fetch('GET', 'deleteImages');
-
-	}
-
 	isusualcreation(conf: filtersConfig){
 
 		const {actions} = conf;
@@ -392,68 +348,41 @@ export class Filters {
 					}
 
 					const actions = this.getactions(image, configuration);
-					const body    = JSON.stringify({image: image.path, actions});
 
-					if(this.type === 'server'){
+					let NEED_GL_FILTERING = this.ios === false;
 
-						this.serverpreload([image.path])
-						.then(() => this.serverapply(body))
-						.then((response) => response.arrayBuffer())
-						.then((buffer) => {
+					if(FORCE && this.type === 'js'){
 
-							const clampedArray = new Uint8ClampedArray(buffer);
-							const imageData2   = new ImageData(clampedArray, image._element.width, image._element.height);
+						NEED_GL_FILTERING = false;
 
-							image.filters.push(new this.fabric.Image.filters.replace({body, imageData2, useBy: `${image.path}-${configuration.name}`}));
+						this.fabric.enableGLFiltering = NEED_GL_FILTERING;
+						this.fabric.filterBackend     = this.fabric.initFilterBackend();
 
-							this.serverfreememory().then(() => {
+					}else if(FORCE && this.type === 'webgl'){
 
-								this.type = SAVE_TYPE;
+						NEED_GL_FILTERING = true;
 
-								resolve(image);
+						this.fabric.enableGLFiltering = NEED_GL_FILTERING;
+						this.fabric.filterBackend     = this.fabric.initFilterBackend();
 
-							});
+					}else if(this.fabric.enableGLFiltering !== NEED_GL_FILTERING){
 
-						});
-
-					}else{
-
-						let NEED_GL_FILTERING = this.ios === false;
-
-						if(FORCE && this.type === 'js'){
-
-							NEED_GL_FILTERING = false;
-
-							this.fabric.enableGLFiltering = NEED_GL_FILTERING;
-							this.fabric.filterBackend     = this.fabric.initFilterBackend();
-
-						}else if(FORCE && this.type === 'webgl'){
-
-							NEED_GL_FILTERING = true;
-
-							this.fabric.enableGLFiltering = NEED_GL_FILTERING;
-							this.fabric.filterBackend     = this.fabric.initFilterBackend();
-
-						}else if(this.fabric.enableGLFiltering !== NEED_GL_FILTERING){
-
-							this.fabric.enableGLFiltering = NEED_GL_FILTERING;
-							this.fabric.filterBackend     = this.fabric.initFilterBackend();
-
-						}
-
-						this.action(image, configuration.name, actions).then(() => {
-
-							this.type = SAVE_TYPE;
-
-							resolve(image);
-
-						}).catch((error) => {
-
-							reject(error);
-
-						});
+						this.fabric.enableGLFiltering = NEED_GL_FILTERING;
+						this.fabric.filterBackend     = this.fabric.initFilterBackend();
 
 					}
+
+					this.action(image, configuration.name, actions).then(() => {
+
+						this.type = SAVE_TYPE;
+
+						resolve(image);
+
+					}).catch((error) => {
+
+						reject(error);
+
+					});
 
 				}else{
 

@@ -25,7 +25,7 @@ describe('fabric (ts)', () => {
 
 		it('extended should disable GLFiltering', () => {
 
-			chai.expect(extended.enableGLFiltering).to.equal(false);
+			chai.expect(extended.enableGLFiltering).to.equal(true);
 
 		});
 

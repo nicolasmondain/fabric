@@ -1,7 +1,7 @@
 {
   "name": "@nicolasmondain/fabric",
   "version": "3.0.2",
-  "description": "Extension of frabric.js, including additional filters and methods dedicated to image processing.",
+  "description": "Extension of fabric.js, including additional filters and methods dedicated to image processing.",
   "main": "dist/main.js",
   "author": "nicolasmondain",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git+https://github.com/nicolasmondain/fabric.git"
   },
-	"bugs": {
+  "bugs": {
     "url": "https://github.com/nicolasmondain/fabric/issues"
   },
   "homepage": "https://github.com/nicolasmondain/fabric#readme",
@@ -29,7 +29,7 @@
     "clean": "rimraf ./dist && mkdir dist",
     "test:ts": "mocha -p false -r ts-node/register test/*.test.ts",
     "test:js": "mocha -p false -r @babel/register test/*.test.js",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint src",
     "webpack:development": "set NODE_ENV=development&& node webpack/build.js",
     "webpack:production": "set NODE_ENV=production&& node webpack/build.js",
     "project": "npm run lint & npm run test:ts & npm run clean & npm run webpack:production && npm run test:js"
@@ -39,7 +39,7 @@
     "@babel/node": "7.16.0",
     "@babel/preset-env": "7.16.0",
     "@babel/register": "7.17.7",
-    "@nicolasmondain/eslint-config": "2.0.28",
+    "@nicolasmondain/eslint-config": "2.1.1",
     "@types/chai": "4.2.22",
     "@types/chai-as-promised": "7.1.4",
     "@types/emscripten": "1.39.6",
@@ -76,8 +76,8 @@
   "dependencies": {
     "regenerator-runtime": "0.13.11"
   },
-	"publishConfig": {
-		"access": "public",
-		"registry": "https://registry.npmjs.org"
-	}
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
 }
