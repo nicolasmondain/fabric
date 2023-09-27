@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const FABRIC   = new fabricExtend.Fabric(fabric, 'webgl').extend(); // eslint-disable-line no-undef
 		const CANVAS   = new FABRIC.Canvas(HTMLCanvasElement, {backgroundColor: '#eaecef'});
 		const CONFIG   = Object.keys(FABRIC.extendedfilters.config);
-		const STANDARD = CONFIG.filter((c) => FABRIC.extendedfilters.config[c].type === 'standard').sort();
+		const STANDARD = CONFIG.filter((c) => FABRIC.extendedfilters.config[c].type === 'action').sort();
 
 		CANVAS.setDimensions({width: canvas.width / ratio, height: canvas.height / ratio});
 
