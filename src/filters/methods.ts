@@ -67,6 +67,8 @@ export default {
 
 				const img = new Image();
 
+				img.crossOrigin = 'Anonymous';
+
 				img.onerror = () => {
 
 					reject(new Error(`getimagedata: ${src} does not exist`));
