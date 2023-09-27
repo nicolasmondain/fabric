@@ -32,7 +32,7 @@
     "test:js": "mocha -p false -r @babel/register test/*.test.js",
     "lint": "eslint src",
     "webpack:development": "set NODE_ENV=development&& node webpack/build.js && npm run copy:main.js",
-    "webpack:production": "set NODE_ENV=production&& node webpack/build.js && npm run copy:main.js",
+    "webpack:production": "set NODE_ENV=production&& node webpack/build.js",
     "project": "npm run lint & npm run test:ts & npm run clean & npm run webpack:production && npm run test:js"
   },
   "devDependencies": {
