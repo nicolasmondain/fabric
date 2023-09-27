@@ -7,4 +7,4 @@ nav_exclude: false
 has_children: true
 ---
 
-<h1>Documentation</h1>
+# Documentation

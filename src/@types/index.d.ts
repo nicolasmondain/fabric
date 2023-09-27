@@ -6,7 +6,11 @@ import 'emscripten';
 export type rgb               = [number, number, number];
 export type rgba              = [number, number, number, number];
 export type homothetic        = {x:number, y:number, w:number, h:number, r: number};
+export type incrustation      = {a: number; x: number; y: number; w: number; h: number;};
+export type frame             = {width: number; height: number;};
+export type position          = Record<string, any>;
 export type library           = Record<string, any>;
+export type module            = Record<string, any>;
 export type filtersExtensions = Record<string, (f: library) => void>;
 export type filtersType       = 'js' | 'webgl';
 export type filtersDataArray  = Array<number,  rgb>;
@@ -42,10 +46,10 @@ export type filtersOptions    = {
 	value1?      : number | boolean | string;
 	value2?      : number | boolean | string;
 	json? 	     : string | filtersDataObject;
-	frame?       : {width: number; height: number;};
+	frame?       : frame;
 	media?       : {type: string; index: number;};
 	process?     : 'current' | 'original';
-	incrustation?: {a: number; x: number; y: number; w: number; h: number;};
+	incrustation?: incrustation;
 	canvas?			 : Fabric.Canvas;
 
 };

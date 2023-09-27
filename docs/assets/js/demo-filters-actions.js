@@ -1,71 +1,3 @@
-const gethomothetic = (imgw, imgh, incw, inch) => {
-
-	const h = {};
-
-	if(imgw / imgh > incw / inch){
-
-		const newimgw = incw * imgh / inch;
-
-		h.x = (imgw - newimgw) / 2.0;
-		h.y = 0;
-		h.w = newimgw;
-		h.h = imgh;
-		h.r = incw / imgw;
-
-	}else if(imgw / imgh < incw / inch){
-
-		const newimgh = imgw * inch / incw;
-
-		h.x = 0;
-		h.y = (imgh - newimgh) / 2.0;
-		h.w = imgw;
-		h.h = newimgh;
-		h.r = incw / imgw;
-
-	}else{
-
-		h.x = 0;
-		h.y = 0;
-		h.w = imgw;
-		h.h = imgh;
-		h.r = incw / imgw;
-
-	}
-
-	return h;
-
-};
-
-const getincrustationoptions = (incrustation, homothetic, shoot, ratio, flipX = false, flipY = false) => {
-
-	const options = {
-
-		backgroundColor : '#6c757d',
-		crossOrigin     : 'Anonymous',
-		angle           : incrustation.a,
-		left            : incrustation.x / ratio,
-		top             : incrustation.y / ratio,
-		width           : homothetic.w,
-		height          : homothetic.h,
-		scaleX          : shoot.width * ((incrustation.w / ratio) / homothetic.w) / shoot.width,
-		scaleY          : shoot.height * ((incrustation.h / ratio) / homothetic.h) / shoot.height,
-		cropX           : homothetic.x,
-		cropY           : homothetic.y,
-		type            : 'incrustation',
-		selectable      : false,
-		centeredRotation: true,
-		incrustation,
-		homothetic,
-		ratio,
-		flipX,
-		flipY
-
-	};
-
-	return options;
-
-};
-
 document.addEventListener('DOMContentLoaded', () => {
 
 	const HTMLCanvasElement = document.querySelector('canvas');
@@ -81,8 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		const FABRIC   = new fabricExtend.Fabric(fabric, 'webgl').extend(); // eslint-disable-line no-undef
 		const CANVAS   = new FABRIC.Canvas(HTMLCanvasElement, {backgroundColor: '#eaecef'});
-		const CONFIG   = Object.keys(FABRIC.extendedfilters.config);
-		const STANDARD = CONFIG.filter((c) => FABRIC.extendedfilters.config[c].type === 'action').sort();
+		const CONFIG   = Object.keys(FABRIC.extended.filters.config);
+		const STANDARD = CONFIG.filter((c) => FABRIC.extended.filters.config[c].type === 'action').sort();
+		const POSITION = FABRIC.extended.methods.position.get('incrustation', incrustation, {
+
+			i    : incrustation,
+			h    : FABRIC.extended.methods.homothetic.gethomothetic(shoot.width, shoot.height, incrustation.w, incrustation.h),
+			f    : shoot,
+			r    : ratio,
+			merge: {flipX: false, flipY: false, backgroundColor: '#6c757d'}
+
+		});
 
 		CANVAS.setDimensions({width: canvas.width / ratio, height: canvas.height / ratio});
 
@@ -104,14 +45,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			HTMLSelectElement.addEventListener('change', () => {
 
-				const conf = FABRIC.extendedfilters.getconf(HTMLSelectElement.value, [], '../../assets/img/');
+				const name    = HTMLSelectElement.value;
+				const actions = [];
+				const prefix  = '../../assets/img/';
+				const medias  = [];
 
-				FABRIC.extendedfilters.apply(image, conf).then(() => {
+				const conf = FABRIC.extended.filters.getconf(name, actions, prefix, medias);
+
+				FABRIC.extended.filters.apply(image, conf).then(() => {
 
 					image.applyFilters();
 					CANVAS.renderAll();
 
-					HTMLPreElement.innerHTML = JSON.stringify(FABRIC.extendedfilters.config[HTMLSelectElement.value], null, 2);
+					HTMLPreElement.innerHTML = JSON.stringify(FABRIC.extended.filters.config[HTMLSelectElement.value], null, 2);
 
 				}).catch((error) => {
 
@@ -121,8 +67,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			});
 
-		}, getincrustationoptions(incrustation, gethomothetic(shoot.width, shoot.height, incrustation.w, incrustation.h), shoot, ratio));
+		}, POSITION);
 
 	}
 
 });
+
+// incrustation, FABRIC.extended.methods.homothetic.gethomothetic(shoot.width, shoot.height, incrustation.w, incrustation.h), shoot, ratio)
+
+// type: string, opts: {i: incrustation, h: homothetic, f: frame, r: number, merge?: Record<string, any>}
+
+// backgroundColor : '#6c757d',
+// 		flipX,
+// 		flipY

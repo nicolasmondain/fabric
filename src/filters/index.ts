@@ -28,6 +28,7 @@ export class Filters {
 	extensions: filtersExtensions;					// ensemble des méthodes ajoutées à fabric pour l'application de filtres
 	type      : filtersType;								// type de filtres à appliquer (JavaScript ou WebGL)
 	ios       : boolean;										// iPhone ou iPad ? Détermine si nous allons utiliser le JavaScript (true) ou WebGL (false)
+	methods   : typeof methods;							// méthodes utilisées pour l'application des filtres
 
 	constructor(fabric: library, configFilters: filtersConfigModule = {}, type: filtersType = 'webgl'){
 
@@ -38,6 +39,7 @@ export class Filters {
 		this.extensions = {} as filtersExtensions;
 		this.type       = type;
 		this.ios        = this.type === 'js' ? true : ['iPad', 'iPhone', 'iPod'].includes(window.navigator.platform) || (window.navigator.userAgent.includes('Mac') && 'ontouchend' in window.document);
+		this.methods    = methods;
 
 	}
 
