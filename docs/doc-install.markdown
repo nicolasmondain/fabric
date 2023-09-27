@@ -2,7 +2,7 @@
 layout: default
 title: Installation
 permalink: /doc/install
-nav_order: 1
+nav_order: 0
 nav_exclude: false
 parent: Documentation
 ---

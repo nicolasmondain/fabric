@@ -1,11 +1,528 @@
 import {filtersConfigModule} from '../@types';
 
-import filtersConfigActionTest from './config.action.test';
-import filtersConfigSpecific from './config.specific';
-import filtersConfigSpecificTest from './config.specific.test';
-import filtersConfigStandard from './config.standard';
-import filtersConfigStandardTest from './config.standard.test';
+const filtersConfig = {
 
-const filtersConfig = Object.assign({}, filtersConfigActionTest, filtersConfigSpecific, filtersConfigSpecificTest, filtersConfigStandard, filtersConfigStandardTest);
+	add: {
+		name   : 'add',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'add', parameters: {imageData2: ''}}
+
+		]
+	},
+	adjustbrightness: {
+		name   : 'adjustbrightness',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'adjustbrightness', parameters: {value1: 50}}
+
+		]
+	},
+	average: {
+		name   : 'average',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'average', parameters: {value1: 50, value2: 100, imageData2: ''}}
+
+		]
+	},
+	colorburn: {
+		name   : 'colorburn',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'colorburn', parameters: {imageData2: ''}}
+
+		]
+	},
+	colordodge: {
+		name   : 'colordodge',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'colordodge', parameters: {imageData2: ''}}
+
+		]
+	},
+	curvefromfile: {
+		name   : 'curvefromfile',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'curvefromfile', parameters: {imageData2: ''}}
+
+		]
+	},
+	colorscheme1: {
+		name   : 'colorscheme1',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'colorscheme1', parameters: {value1: 100}}
+
+		]
+	},
+	colorscheme2: {
+		name   : 'colorscheme2',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'colorscheme2', parameters: {value1: 100}}
+
+		]
+	},
+	colorscheme3: {
+		name   : 'colorscheme3',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'colorscheme3', parameters: {value1: 100}}
+
+		]
+	},
+	darken: {
+		name   : 'darken',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'darken', parameters: {imageData2: ''}}
+
+		]
+	},
+	desaturate: {
+		name   : 'desaturate',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'desaturate', parameters: {}}
+
+		]
+	},
+	difference: {
+		name   : 'difference',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'difference', parameters: {imageData2: ''}}
+
+		]
+	},
+	exclusion: {
+		name   : 'exclusion',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'exclusion', parameters: {imageData2: ''}}
+
+		]
+	},
+	gaussianblur: {
+		name   : 'gaussianblur',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'js',
+		medias : 'standard',
+		actions: [
+
+			{name: 'gaussianblur', parameters: {value1: 2}}
+
+		]
+	},
+	sharpen: {
+		name   : 'sharpen',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'sharpen', parameters: {}}
+
+		]
+	},
+	bilateral: {
+		name   : 'bilateral',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'js',
+		medias : 'standard',
+		actions: [
+
+			{name: 'bilateral', parameters: {value1: 15, value2: 30}}
+
+		]
+	},
+	blur: {
+		name   : 'blur',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'js',
+		medias : 'standard',
+		actions: [
+
+			{name: 'blur', parameters: {}}
+
+		]
+	},
+	glow: {
+		name   : 'glow',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'glow', parameters: {imageData2: ''}}
+
+		]
+	},
+	grayscale: {
+		name   : 'grayscale',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'grayscale', parameters: {}}
+
+		]
+	},
+	hardlight: {
+		name   : 'hardlight',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'hardlight', parameters: {imageData2: ''}}
+
+		]
+	},
+	hardmix: {
+		name   : 'hardmix',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'hardmix', parameters: {imageData2: ''}}
+
+		]
+	},
+	invert: {
+		name   : 'invert',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'invert', parameters: {}}
+
+		]
+	},
+	lenticular: {
+		name   : 'lenticular',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'js',
+		medias : 'standard',
+		actions: [
+
+			{name: 'lenticular', parameters: {imageData2: ''}}
+
+		]
+	},
+	lighten: {
+		name   : 'lighten',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'lighten', parameters: {imageData2: ''}}
+
+		]
+	},
+	linearlight: {
+		name   : 'linearlight',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'linearlight', parameters: {imageData2: ''}}
+
+		]
+	},
+	luth256: {
+		name   : 'luth256',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'luth256', parameters: {value1: true, imageData2: ''}}
+
+		]
+	},
+	matrice: {
+		name   : 'matrice',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'matrice', parameters: {json: 'nashville'}}
+
+		]
+	},
+	multiply: {
+		name   : 'multiply',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'multiply', parameters: {imageData2: ''}}
+
+		]
+	},
+	negate: {
+		name   : 'negate',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'negate', parameters: {imageData2: ''}}
+
+		]
+	},
+	overlay: {
+		name   : 'overlay',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'overlay', parameters: {imageData2: ''}}
+
+		]
+	},
+	phoenix: {
+		name   : 'phoenix',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'phoenix', parameters: {imageData2: ''}}
+
+		]
+	},
+	pinlight: {
+		name   : 'pinlight',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'pinlight', parameters: {imageData2: ''}}
+
+		]
+	},
+	reflect: {
+		name   : 'reflect',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'reflect', parameters: {imageData2: ''}}
+
+		]
+	},
+	saturation: {
+		name   : 'saturation',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'saturation', parameters: {value1: 30}}
+
+		]
+	},
+	screen: {
+		name   : 'screen',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'screen', parameters: {value1: 30, imageData2: ''}}
+
+		]
+	},
+	sepia: {
+		name   : 'sepia',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'sepia', parameters: {}}
+
+		]
+	},
+	softlight: {
+		name   : 'softlight',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'softlight', parameters: {imageData2: ''}}
+
+		]
+	},
+	substract: {
+		name   : 'substract',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'substract', parameters: {imageData2: ''}}
+
+		]
+	},
+	treshold: {
+		name   : 'treshold',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'treshold', parameters: {value1: 30}}
+
+		]
+	},
+	vividlight: {
+		name   : 'vividlight',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'auto',
+		medias : 'standard',
+		actions: [
+
+			{name: 'vividlight', parameters: {imageData2: ''}}
+
+		]
+	}
+
+};
 
 export default filtersConfig as filtersConfigModule;

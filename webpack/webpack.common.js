@@ -57,21 +57,6 @@ const configuration = {
 
         {
 
-					from: path.resolve(__dirname, '../src/filters/img'),
-					to  : path.resolve(__dirname, '../dist/filters/img')
-
-				}
-
-      ]
-
-    }),
-
-		new CopyPlugin({
-
-      patterns: [
-
-        {
-
 					from       : 'src/**/*.wasm',
           globOptions: {
 

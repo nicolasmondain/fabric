@@ -22,17 +22,17 @@ import methods from './methods';
 export class Filters {
 
 	fabric    : library;										// fabric
-	config    : filtersConfigModule; 				// configuration des filtres disponibles (image, json, test, etc)
+	config    : filtersConfigModule; 				// configuration des filtres disponibles
 	create    : Array<filtersCreate>;				// création de filtres fréquentes / connues
 	data      : filtersDataModule;					// données associées aux filtres disponibles (json)
 	extensions: filtersExtensions;					// ensemble des méthodes ajoutées à fabric pour l'application de filtres
-	type      : filtersType;								// type de filtres à appliquer (server, JavaScript ou WebGL)
-	ios       : boolean;										// eventManager sur iPhone ou iPad ? Détermine si nous allons utiliser le JavaScript (true) ou WebGL (false)
+	type      : filtersType;								// type de filtres à appliquer (JavaScript ou WebGL)
+	ios       : boolean;										// iPhone ou iPad ? Détermine si nous allons utiliser le JavaScript (true) ou WebGL (false)
 
-	constructor(fabric: library, type: filtersType = 'webgl'){
+	constructor(fabric: library, configFilters: filtersConfigModule = {}, type: filtersType = 'webgl'){
 
 		this.fabric     = fabric;
-		this.config     = config;
+		this.config     = Object.assign({}, config, configFilters);
 		this.create 	  = create;
 		this.data       = data;
 		this.extensions = {} as filtersExtensions;
@@ -81,7 +81,7 @@ export class Filters {
 
 	}
 
-	getconf(name: string, medias: Array<{index:number, type: string, src: string, path: string}>, prefix:string, actions?: filtersActions): filtersConfig{
+	getconf(name: string, actions = [] as filtersActions, prefix = '' as string, medias = [] as Array<{index:number, type: string, src: string}>): filtersConfig{
 
 		let conf = {} as filtersConfig;
 
@@ -91,15 +91,11 @@ export class Filters {
 
 			for(let i = 0; i < conf.actions.length; i += 1){
 
-				if(conf.actions[i].parameters.media){
+				if(medias?.length && conf.actions[i].parameters.media){
 
-					const media = medias.find((m) => m.index === conf.actions[i].parameters.media?.index && m.type === conf.actions[i].parameters.media?.type); // eslint-disable-line no-loop-func
+					const media = medias?.find((m) => m.index === conf.actions[i].parameters.media?.index && m.type === conf.actions[i].parameters.media?.type); // eslint-disable-line no-loop-func
 
-					if(media && this.type === 'server'){
-
-						conf.actions[i].parameters.imageData2 = media.path;
-
-					}else if(media){
+					if(media){
 
 						conf.actions[i].parameters.imageData2 = media.src;
 
@@ -152,10 +148,10 @@ export class Filters {
 
 			a.parameters.homothetic = image.homothetic || {x: 0, y: 0, w: 0, h: 0, r: 1};
 			a.parameters.frame      = {height: image._element.height, width: image._element.width};
-			a.parameters.json       = this.type === 'server' ? a.parameters.json : this.getdata(a.parameters.json as string);
+			a.parameters.json       = this.getdata(a.parameters.json as string);
 			a.parameters.process    = a.parameters.process ? a.parameters.process : 'current';
 
-			if(this.type !== 'server' && typeof a.parameters.json === 'object' && a.parameters.json?.desaturate){
+			if(typeof a.parameters.json === 'object' && a.parameters.json?.desaturate){
 
 				desaturate = i;
 

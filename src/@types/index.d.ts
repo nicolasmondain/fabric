@@ -8,7 +8,7 @@ export type rgba              = [number, number, number, number];
 export type homothetic        = {x:number, y:number, w:number, h:number, r: number};
 export type library           = Record<string, any>;
 export type filtersExtensions = Record<string, (f: library) => void>;
-export type filtersType       = 'server' | 'js' | 'webgl';
+export type filtersType       = 'js' | 'webgl';
 export type filtersDataArray  = Array<number,  rgb>;
 export type filtersDataObject = {
 
@@ -24,10 +24,9 @@ export type filtersCreate = {
 
 	length  : number;
 	actions : Array<string>;
-	name    : string;
 	preview : number;
 	refresh : boolean;
-	force   : 'js'|'webgl'|'server'|'auto';
+	force   : 'js'|'webgl'|'auto';
 	medias  : 'standard'|'session';
 
 };
@@ -60,7 +59,7 @@ export type filtersConfig  = {
 	active  : boolean;
 	actions : filtersActions;
 	type    : string;
-	force   : 'js'|'webgl'|'server'|'auto';
+	force   : 'js'|'webgl'|'auto';
 	medias  : 'standard'|'session';
 
 }
@@ -100,7 +99,6 @@ export type fabricImage = HTMLImageElement & {
 
 	homothetic? : homothetic;
 	incrustation: {a: number; x: number; y: number; w: number; h: number;};
-	path        : string;
 	_element    : HTMLImageElement;
 	filters     : Array<any>;
 	cacheKey    : string;
@@ -135,7 +133,7 @@ export interface filtersModule {
 
 	config: filtersConfigModule;
 	extend: (fabric: library) => library;
-	params: (name: string, medias: Array<{index:number, type: string, src: string, path: string}>, prefix: string) => filtersConfig;
+	params: (name: string, medias: Array<{index:number, type: string, src: string}>, prefix: string) => filtersConfig;
 	data	: (name: string) => filtersData;
 	remove: (image: fabricImage) => void;
 	apply : (image: fabricImage, options: filtersOptions) => Promise<void>;
