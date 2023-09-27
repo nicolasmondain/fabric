@@ -74,3 +74,13 @@ kramdown:
   syntax_highlighter_opts:
     block:
       line_numbers: false
+callouts:
+  warning:
+    title: Warning
+    color: red
+  important:
+    title: Important
+    color: purple
+  note:
+    title: Note
+    color: blue

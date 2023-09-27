@@ -16,18 +16,16 @@ export class Fabric {
 		this.filters = new Filters(fabric, config, ftype);
 		this.methods = {homothetic, position};
 
+		this.fabric.extended = {};
+
 	}
 
 	extend(): library{
 
 		this.filters.extend();
 
-		this.fabric.extended = {
-
-			filters: this.filters,
-			methods: this.methods
-
-		};
+		this.fabric.extended.filters = this.filters;
+		this.fabric.extended.methods = this.methods;
 
 		return this.fabric;
 

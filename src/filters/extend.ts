@@ -98,17 +98,17 @@ const methods: Record<string, (f: library) => void> = { // eslint-disable-line n
 
 export const extend = (fabric: library): Record<string, (f: library) => void> => { // eslint-disable-line no-unused-vars
 
-	fabric.extendedbackendWebgl    = new fabric.WebglFilterBackend({tileSize: fabric.textureSize});
-	fabric.extendedbackendCanvas2d = new fabric.Canvas2dFilterBackend();
-	fabric.initFilterBackend       = () => {
+	fabric.extended.backendWebgl    = new fabric.WebglFilterBackend({tileSize: fabric.textureSize});
+	fabric.extended.backendCanvas2d = new fabric.Canvas2dFilterBackend();
+	fabric.initFilterBackend        = () => {
 
 		if(fabric.enableGLFiltering && fabric.isWebglSupported && fabric.isWebglSupported(fabric.textureSize)){
 
-			return fabric.extendedbackendWebgl;
+			return fabric.extended.backendWebgl;
 
 		}else if(fabric.Canvas2dFilterBackend){
 
-			return fabric.extendedbackendCanvas2d;
+			return fabric.extended.backendCanvas2d;
 
 		}
 

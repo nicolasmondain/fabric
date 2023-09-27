@@ -105,8 +105,12 @@ export class Filters {
 
 				}else if(conf.actions[i].parameters.imageData2 || conf.actions[i].parameters.imageData3){
 
-					conf.actions[i].parameters.imageData2 = prefix + conf.actions[i].parameters.imageData2;
-					conf.actions[i].parameters.imageData3 = prefix + conf.actions[i].parameters.imageData3;
+					const {imageData2, imageData3} = conf.actions[i].parameters;
+
+					const isBase64 = (imageData: string | ImageData | undefined) => typeof imageData === 'string' ? imageData.slice(0, 5) === 'data:' : false; // eslint-disable-line no-confusing-arrow
+
+					conf.actions[i].parameters.imageData2 = isBase64(imageData2) ? imageData2 : prefix + conf.actions[i].parameters.imageData2;
+					conf.actions[i].parameters.imageData3 = isBase64(imageData3) ? imageData3 : prefix + conf.actions[i].parameters.imageData3;
 
 				}
 

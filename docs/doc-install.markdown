@@ -51,11 +51,11 @@ const FILTER_ACTIONS    = [];
 
 const canvas = new fabric.Canvas('canvas');
 const url    = './img/SHOOT-0.jpg';
-const conf   = fabric.extendedfilters.getconf(FILTER_NAME, FILTER_FILES, FILTER_FILES_PATH, FILTER_ACTIONS);
+const conf   = fabric.extended.filters.getconf(FILTER_NAME, FILTER_ACTIONS, FILTER_FILES_PATH, FILTER_FILES);
 
 fabric.Image.fromURL(url, (image) => {
 
-	fabric.extendedfilters.apply(image, conf).then(() => {
+	fabric.extended.filters.apply(image, conf).then(() => {
 
 		image.applyFilters();
 		canvas.add(image);

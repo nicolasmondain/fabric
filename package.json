@@ -27,11 +27,12 @@
   ],
   "scripts": {
     "clean": "rimraf ./dist && mkdir dist",
+		"copy:main.js": "cp .\\dist\\main.js .\\docs\\assets\\js\\",
     "test:ts": "mocha -p false -r ts-node/register test/*.test.ts",
     "test:js": "mocha -p false -r @babel/register test/*.test.js",
     "lint": "eslint src",
-    "webpack:development": "set NODE_ENV=development&& node webpack/build.js",
-    "webpack:production": "set NODE_ENV=production&& node webpack/build.js",
+    "webpack:development": "set NODE_ENV=development&& node webpack/build.js && npm run copy:main.js",
+    "webpack:production": "set NODE_ENV=production&& node webpack/build.js && npm run copy:main.js",
     "project": "npm run lint & npm run test:ts & npm run clean & npm run webpack:production && npm run test:js"
   },
   "devDependencies": {
