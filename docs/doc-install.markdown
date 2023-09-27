@@ -53,7 +53,7 @@ const FILTER = {
 
 };
 
-const canvas = new fabric.Canvas('canvas');
+const canvas = new fabric.StaticCanvas('canvas');
 const url    = './img/SHOOT-0.jpg';
 const conf   = fabric.extended.filters.getconf(FILTER.name, FILTER.actions, FILTER.path, FILTER.medias);
 
