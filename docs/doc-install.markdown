@@ -44,23 +44,25 @@ We can then use `fabric.js` in the standard way by importing the _extended_ obje
 
 import fabric from './extend.js';
 
-const FILTER_NAME       = 'blackandwhite';
-const FILTER_FILES      = [];
-const FILTER_FILES_PATH = '';
-const FILTER_ACTIONS    = [];
+const FILTER = {
+
+	name: 'blackandwhite',
+	medias : [],
+	path   : '',
+	actions: []
+
+};
 
 const canvas = new fabric.Canvas('canvas');
 const url    = './img/SHOOT-0.jpg';
-const conf   = fabric.extended.filters.getconf(FILTER_NAME, FILTER_ACTIONS, FILTER_FILES_PATH, FILTER_FILES);
+const conf   = fabric.extended.filters.getconf(FILTER.name, FILTER.actions, FILTER.path, FILTER.medias);
 
 fabric.Image.fromURL(url, (image) => {
 
-	fabric.extended.filters.apply(image, conf).then(() => {
+	await fabric.extended.filters.apply(image, conf);
 
-		image.applyFilters();
-		canvas.add(image);
-
-	});
+	image.applyFilters();
+	canvas.add(image);
 
 }, {crossOrigin: 'anonymous'});
 
