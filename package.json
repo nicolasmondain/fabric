@@ -1,6 +1,6 @@
 {
   "name": "@nicolasmondain/fabric",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Extension of fabric.js, including additional filters and methods dedicated to image processing.",
   "main": "dist/main.js",
   "author": "nicolasmondain",
