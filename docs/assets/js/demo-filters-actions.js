@@ -6,8 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	const HTMLSelectElement      = document.getElementById('actions');
 	const HTMLDownloadElement    = document.getElementById('download');
 	const HTMLApplyElement       = document.getElementById('apply');
-	const HTMLInputFileElement   = document.getElementById('file');
-	const HTMLUploadElement      = document.getElementById('upload');
+	const HTMLInputFile1Element  = document.getElementById('file1');
+	const HTMLInputFile2Element  = document.getElementById('file2');
+	const HTMLUpload1Element     = document.getElementById('upload1');
+	const HTMLUpload2Element     = document.getElementById('upload2');
 	const HTMLInputValue1Element = document.getElementById('value1');
 	const HTMLInputValue2Element = document.getElementById('value2');
 	const HTMLNameElement        = document.getElementById('name');
@@ -29,9 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		h    : FABRIC.extended.methods.homothetic.gethomothetic(shoot.width, shoot.height, incrustation.w, incrustation.h),
 		f    : shoot,
 		r    : ratio,
-		merge: {flipX: false, flipY: false, backgroundColor: '#6c757d'}
+		merge: {flipX: false, flipY: false}
 
 	});
+
+	CANVAS.ratio = ratio; // attach ratio to canvas
 
 	CANVAS.setDimensions({width: canvas.width / ratio, height: canvas.height / ratio});
 
@@ -46,14 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	}
 
-	FABRIC.Image.fromURL('https://raw.githubusercontent.com/nicolasmondain/fabric/master/docs/assets/img/SHOOT-0.jpg', (image) => {
+	FABRIC.Image.fromURL('../../assets/img/SHOOT-0.jpg', (image) => {
 
 		CANVAS.add(image);
 		CANVAS.renderAll();
 
 		const checkInputs = () => {
 
-			if(Object.prototype.hasOwnProperty.call(FABRIC.Image.filters[HTMLSelectElement.value].prototype.configuration, 'imageData2') && !HTMLInputFileElement.files.length){
+			if(Object.prototype.hasOwnProperty.call(FABRIC.Image.filters[HTMLSelectElement.value].prototype.configuration, 'imageData2') && !HTMLInputFile2Element.files.length){
 
 				HTMLApplyElement.disabled = true;
 
@@ -99,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			HTMLInputValue1Element.style.display = 'none';
 			HTMLInputValue2Element.style.display = 'none';
-			HTMLUploadElement.style.display      = 'none';
+			HTMLUpload2Element.style.display     = 'none';
 
 			if(Object.prototype.hasOwnProperty.call(FABRIC.Image.filters[HTMLSelectElement.value].prototype.configuration, 'value1')){
 
@@ -115,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			if(Object.prototype.hasOwnProperty.call(FABRIC.Image.filters[HTMLSelectElement.value].prototype.configuration, 'imageData2')){
 
-				HTMLUploadElement.style.display = 'block';
+				HTMLUpload2Element.style.display = 'block';
 
 			}
 
@@ -142,7 +146,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		});
 
-		HTMLInputFileElement.addEventListener('change', () => {
+		HTMLInputFile1Element.addEventListener('change', () => {
+
+			const reader = new FileReader();
+
+			reader.onload = () => {
+
+				const update = new Image();
+
+				update.onload = () => {
+
+					image.setElement(update);
+
+					CANVAS.renderAll();
+
+				};
+
+				update.onerror = () => console.log(update.error);
+
+				update.src = reader.result;
+
+			};
+
+			reader.onerror = () => console.log(reader.error);
+
+			reader.readAsDataURL(HTMLInputFile1Element.files[0]);
+
+		});
+
+		HTMLInputFile2Element.addEventListener('change', () => {
 
 			const reader = new FileReader();
 
@@ -170,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.onerror = () => console.log(reader.error);
 
-			reader.readAsDataURL(HTMLInputFileElement.files[0]);
+			reader.readAsDataURL(HTMLInputFile2Element.files[0]);
 
 			checkInputs();
 
@@ -205,9 +237,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		});
 
-		HTMLUploadElement.addEventListener('click', () => {
+		HTMLUpload1Element.addEventListener('click', () => {
 
-			HTMLInputFileElement.click();
+			HTMLInputFile1Element.click();
+
+		});
+
+		HTMLUpload2Element.addEventListener('click', () => {
+
+			HTMLInputFile2Element.click();
 
 		});
 
