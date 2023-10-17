@@ -1,4 +1,4 @@
-/* eslint-disable max-lines-per-function */
+/* eslint-disable max-lines-per-function, complexity */
 
 import {filtersApplyTo2dOptions, homothetic, library} from '../../@types';
 
@@ -16,7 +16,7 @@ export const beautyfilter = (fabric: library) => {
 		homothetic   : globals.HOMOTHETIC_DEFAULT as homothetic,
 		imageData2   : null,
 		imageData3   : null,
-		value1       : 0,
+		value1       : false,
 		mainParameter: 'useBy',
 		process      : 'current',
 		configuration: {imageData2: 'HTMLImageElement', imageData3: 'HTMLImageElement'},
@@ -136,9 +136,11 @@ export const beautyfilter = (fabric: library) => {
 
 				if(methods.applytothecurrenti(i, this.homothetic.x, this.homothetic.y, this.homothetic.w, this.homothetic.h, options.sourceWidth)){
 
-					data[i]     = BILATERAL_IMAGE.data[i];
-					data[i + 1] = BILATERAL_IMAGE.data[i + 1];
-					data[i + 2] = BILATERAL_IMAGE.data[i + 2];
+					const grayscale = this.value1 === true ? (BILATERAL_IMAGE.data[i] + BILATERAL_IMAGE.data[i + 1] + BILATERAL_IMAGE.data[i + 2]) / 3 : 0;
+
+					data[i]     = grayscale || BILATERAL_IMAGE.data[i];
+					data[i + 1] = grayscale || BILATERAL_IMAGE.data[i + 1];
+					data[i + 2] = grayscale || BILATERAL_IMAGE.data[i + 2];
 
 				}
 
