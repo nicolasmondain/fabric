@@ -7,19 +7,17 @@ import methods from '../methods';
 
 import cv from '../../../opencv/index.js';
 
-export const beautyfilter = (fabric: library) => {
+export const beauty = (fabric: library) => {
 
-	fabric.Image.filters.beautyfilter = fabric.util.createClass(fabric.Image.filters.BaseFilter, {
+	fabric.Image.filters.beauty = fabric.util.createClass(fabric.Image.filters.BaseFilter, {
 
-		type         : 'beautyfilter',
+		type         : 'beauty',
 		useBy        : '',
 		homothetic   : globals.HOMOTHETIC_DEFAULT as homothetic,
 		imageData2   : null,
-		imageData3   : null,
-		value1       : false,
 		mainParameter: 'useBy',
 		process      : 'current',
-		configuration: {imageData2: 'HTMLImageElement', imageData3: 'HTMLImageElement'},
+		configuration: {imageData2: 'HTMLImageElement'},
 		description  : '',
 		applyTo2d(options: filtersApplyTo2dOptions){ // eslint-disable-line max-statements
 
@@ -113,34 +111,15 @@ export const beautyfilter = (fabric: library) => {
 
 			}
 
-			if(this.imageData3){
-
-				const CURVE_IMAGE_BW  = this.imageData3;
-
-				for(let i = 0; i < BILATERAL_IMAGE.data.length; i += 4){
-
-					const linearPosition = BILATERAL_IMAGE.data[i] + (BILATERAL_IMAGE.data[i + 1] * 256) + (BILATERAL_IMAGE.data[i + 2] * 256 * 256);
-					const j              = linearPosition * 4;
-
-					BILATERAL_IMAGE.data[i]     = CURVE_IMAGE_BW.data[j];
-					BILATERAL_IMAGE.data[i + 1] = CURVE_IMAGE_BW.data[j + 1];
-					BILATERAL_IMAGE.data[i + 2] = CURVE_IMAGE_BW.data[j + 2];
-
-				}
-
-			}
-
 			const {data} = this.process === 'current' ? options.imageData : options.originalImageData;
 
 			for(let i = 0; i < data.length; i += 4){
 
 				if(methods.applytothecurrenti(i, this.homothetic.x, this.homothetic.y, this.homothetic.w, this.homothetic.h, options.sourceWidth)){
 
-					const grayscale = this.value1 === true ? (BILATERAL_IMAGE.data[i] + BILATERAL_IMAGE.data[i + 1] + BILATERAL_IMAGE.data[i + 2]) / 3 : 0;
-
-					data[i]     = grayscale || BILATERAL_IMAGE.data[i];
-					data[i + 1] = grayscale || BILATERAL_IMAGE.data[i + 1];
-					data[i + 2] = grayscale || BILATERAL_IMAGE.data[i + 2];
+					data[i]     = BILATERAL_IMAGE.data[i];
+					data[i + 1] = BILATERAL_IMAGE.data[i + 1];
+					data[i + 2] = BILATERAL_IMAGE.data[i + 2];
 
 				}
 
@@ -154,6 +133,6 @@ export const beautyfilter = (fabric: library) => {
 
 	});
 
-	fabric.Image.filters.beautyfilter.fromObject = fabric.Image.filters.BaseFilter.fromObject;
+	fabric.Image.filters.beauty.fromObject = fabric.Image.filters.BaseFilter.fromObject;
 
 };

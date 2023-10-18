@@ -185,7 +185,7 @@ export class Filters {
 
 	action(image: fabricImage, filter: string, actions: filtersActions): Promise<fabricImage>{ // eslint-disable-line max-lines-per-function
 
-		const NO_RESIZE_FOR   = ['curvefromfile', 'beautyfilter', 'lenticular'];
+		const NO_RESIZE_FOR   = ['curvefromfile', 'beauty', 'lenticular'];
 		const LENTICULAR_CASE = ['lenticular'];
 
 		return new Promise((resolve, reject) => { // eslint-disable-line max-lines-per-function
@@ -341,7 +341,7 @@ export class Filters {
 					const AUTO_TYPE = 'auto';
 					let   FORCE     = false;
 
-					if(configuration.force !== AUTO_TYPE && configuration.force !== SAVE_TYPE){
+					if(configuration.force !== AUTO_TYPE){
 
 						FORCE = true;
 
@@ -358,19 +358,19 @@ export class Filters {
 						NEED_GL_FILTERING = false;
 
 						this.fabric.enableGLFiltering = NEED_GL_FILTERING;
-						this.fabric.filterBackend     = this.fabric.initFilterBackend();
+						this.fabric.filterBackend     = this.fabric.extended.initFilterBackend();
 
 					}else if(FORCE && this.type === 'webgl'){
 
 						NEED_GL_FILTERING = true;
 
 						this.fabric.enableGLFiltering = NEED_GL_FILTERING;
-						this.fabric.filterBackend     = this.fabric.initFilterBackend();
+						this.fabric.filterBackend     = this.fabric.extended.initFilterBackend();
 
 					}else if(this.fabric.enableGLFiltering !== NEED_GL_FILTERING){
 
 						this.fabric.enableGLFiltering = NEED_GL_FILTERING;
-						this.fabric.filterBackend     = this.fabric.initFilterBackend();
+						this.fabric.filterBackend     = this.fabric.extended.initFilterBackend();
 
 					}
 

@@ -3,7 +3,7 @@ import {library} from '../@types/index';
 import {add} from './extend/add';
 import {adjustbrightness} from './extend/adjustbrightness';
 import {average} from './extend/average';
-import {beautyfilter} from './extend/beautyfilter';
+import {beauty} from './extend/beauty';
 import {bilateral} from './extend/bilateral';
 import {blur} from './extend/blur';
 import {colorburn} from './extend/colorburn';
@@ -50,7 +50,7 @@ const methods: Record<string, (f: library) => void> = { // eslint-disable-line n
 	add,
 	adjustbrightness,
 	average,
-	beautyfilter,
+	beauty,
 	bilateral,
 	blur,
 	colorburn,
@@ -98,9 +98,9 @@ const methods: Record<string, (f: library) => void> = { // eslint-disable-line n
 
 export const extend = (fabric: library): Record<string, (f: library) => void> => { // eslint-disable-line no-unused-vars
 
-	fabric.extended.backendWebgl    = new fabric.WebglFilterBackend({tileSize: fabric.textureSize});
-	fabric.extended.backendCanvas2d = new fabric.Canvas2dFilterBackend();
-	fabric.initFilterBackend        = () => {
+	fabric.extended.backendWebgl      = new fabric.WebglFilterBackend({tileSize: fabric.textureSize});
+	fabric.extended.backendCanvas2d   = new fabric.Canvas2dFilterBackend();
+	fabric.extended.initFilterBackend = () => {
 
 		if(fabric.enableGLFiltering && fabric.isWebglSupported && fabric.isWebglSupported(fabric.textureSize)){
 

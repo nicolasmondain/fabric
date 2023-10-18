@@ -16,11 +16,11 @@ npm install @nicolasmondain/fabric@latest --save
 
 | Version `fabric.js` | Version `fabric.extend` | Supported |
 | ------------------- | ----------------------- | --------- |
-| 5.2.1               | 3.0.1                   | ✅        |
-| 5.2.3               | 3.0.1                   | ✅        |
-| 5.2.4               | 3.0.1                   | ✅        |
-| 5.3.1               | 3.0.1                   | ✅        |
-| 6.0.x               | 3.0.1                   | ❌        |
+| 5.2.1               | 3.x.x                   | ✅        |
+| 5.2.3               | 3.x.x                   | ✅        |
+| 5.2.4               | 3.x.x                   | ✅        |
+| 5.3.1               | 3.x.x                   | ✅        |
+| 6.0.x               | 3.x.x                   | ❌        |
 
 ## Usage
 
@@ -46,7 +46,7 @@ import fabric from './extend.js';
 
 const FILTER = {
 
-	name: 'blackandwhite',
+	name: 'grayscale',
 	medias : [],
 	path   : '',
 	actions: []
@@ -74,7 +74,7 @@ By using the script tag:
 <script src="../node_modules/@nicolasmondain/fabric/dist/main.js"></script>
 <script>
 
-	const Fabric = new fabricExtend.Fabric(fabric, 'webgl').extend();
+	const Fabric = new fabricExtend.Fabric(fabric).extend();
 
 </script>
 ```

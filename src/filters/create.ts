@@ -7,6 +7,6 @@ export default [
 	{length: 1, actions: ['multiply'], preview: null, refresh: false, force: 'auto', medias: 'session'},
 	{length: 1, actions: ['lenticular'], preview: null, refresh: false, force: 'js', medias: 'standard'},
 	{length: 1, actions: ['lenticular'], preview: null, refresh: false, force: 'js', medias: 'session'},
-	{length: 1, actions: ['beautyfilter'], preview: null, refresh: false, force: 'js', medias: 'standard'}
+	{length: 1, actions: ['beauty'], preview: null, refresh: false, force: 'js', medias: 'standard'}
 
 ] as Array<filtersCreate>;

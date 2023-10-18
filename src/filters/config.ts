@@ -41,6 +41,19 @@ const filtersConfig = {
 
 		]
 	},
+	beauty: {
+		name   : 'beauty',
+		test   : true,
+		active : false,
+		type   : 'action',
+		force  : 'js',
+		medias : 'standard',
+		actions: [
+
+			{name: 'beauty', parameters: {imageData2: '', value1: false}}
+
+		]
+	},
 	colorburn: {
 		name   : 'colorburn',
 		test   : true,
