@@ -36,7 +36,7 @@
     "project": "npm run lint & npm run test:ts & npm run clean & npm run webpack:production && npm run test:js"
   },
   "devDependencies": {
-    "@babel/core": "7.23.0",
+    "@babel/core": "7.23.2",
     "@babel/node": "7.22.19",
     "@babel/preset-env": "7.22.20",
     "@babel/register": "7.17.7",
