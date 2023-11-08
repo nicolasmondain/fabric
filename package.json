@@ -43,7 +43,7 @@
     "@nicolasmondain/eslint-config": "2.1.1",
     "@types/chai": "4.2.22",
     "@types/chai-as-promised": "7.1.6",
-    "@types/emscripten": "1.39.6",
+    "@types/emscripten": "1.39.9",
     "@types/fabric": "5.3.5",
     "@types/jsdom": "16.2.14",
     "@types/mocha": "10.0.3",
