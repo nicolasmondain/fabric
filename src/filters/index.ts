@@ -208,7 +208,7 @@ export class Filters {
 					if(option.parameters?.frame){
 
 						const resize = !NO_RESIZE_FOR.includes(option.name);
-						const size   = resize ? option.parameters.frame : {width: 0, height: 0};
+						const size   = resize ? option.parameters.frame : {width: 0, height: 0, ratio: canvas.ratio};
 
 						if(typeof option.parameters?.imageData2 === 'string' && prototype.configuration.imageData2){
 
