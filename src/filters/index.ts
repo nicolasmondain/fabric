@@ -204,23 +204,18 @@ export class Filters {
 					option.parameters.incrustation = image.incrustation;
 
 					const promises = [] as Array<Promise<ImageData>>;
+					const resize   = !NO_RESIZE_FOR.includes(option.name);
+					const size     = resize && option.parameters?.frame ? option.parameters.frame : {width: 0, height: 0, ratio: canvas.ratio};
 
-					if(option.parameters?.frame){
+					if(typeof option.parameters?.imageData2 === 'string' && prototype.configuration.imageData2){
 
-						const resize = !NO_RESIZE_FOR.includes(option.name);
-						const size   = resize ? option.parameters.frame : {width: 0, height: 0, ratio: canvas.ratio};
+						promises.push(methods.getimagedata(option.parameters.imageData2, size));
 
-						if(typeof option.parameters?.imageData2 === 'string' && prototype.configuration.imageData2){
+					}
 
-							promises.push(methods.getimagedata(option.parameters.imageData2, size));
+					if(typeof option.parameters?.imageData3 === 'string' && prototype.configuration.imageData3){
 
-						}
-
-						if(typeof option.parameters?.imageData3 === 'string' && prototype.configuration.imageData3){
-
-							promises.push(methods.getimagedata(option.parameters.imageData3, size));
-
-						}
+						promises.push(methods.getimagedata(option.parameters.imageData3, size));
 
 					}
 
