@@ -37,7 +37,7 @@ export const curvefromfile = (fabric: library) => {
 
 				vec4 color = texture2D(uTexture, vTexCoord) * 255.0;
 
-				float position = color.r + (color.g * 256.0) + (color.b * 256.0 * 256.0);
+				float position = color.b + (color.g * 256.0) + (color.r * 256.0 * 256.0);
 				float x        = mod(position, 8192.0) / 8192.0;
 				float y        = position / 8192.0 / 2048.0;
 

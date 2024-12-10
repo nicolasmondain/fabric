@@ -1,6 +1,6 @@
 {
   "name": "@nicolasmondain/fabric",
-  "version": "3.2.5",
+  "version": "3.2.8",
   "description": "Extension of fabric.js, including additional filters and methods dedicated to image processing.",
   "main": "dist/main.js",
   "author": "nicolasmondain",
@@ -43,8 +43,8 @@
     "@nicolasmondain/eslint-config": "2.1.1",
     "@types/chai": "4.2.22",
     "@types/chai-as-promised": "7.1.6",
-    "@types/emscripten": "1.39.9",
     "@types/fabric": "5.3.6",
+    "@types/emscripten": "1.39.10",
     "@types/jsdom": "16.2.14",
     "@types/mocha": "10.0.3",
     "@types/node": "20.8.7",
