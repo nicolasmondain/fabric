@@ -55,7 +55,7 @@
     "chai-as-promised": "7.1.1",
     "copy-webpack-plugin": "11.0.0",
     "eslint": "8.2.0",
-    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-import": "2.31.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "6.1.1",
     "fabric": "5.3.0",
