@@ -75,7 +75,7 @@
     "webpack-node-externals": "3.0.0"
   },
   "dependencies": {
-    "regenerator-runtime": "0.14.0"
+    "regenerator-runtime": "0.14.1"
   },
   "publishConfig": {
     "access": "public",
