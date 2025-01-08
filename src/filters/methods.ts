@@ -59,14 +59,13 @@ export default {
 
 	},
 
-	getimagedata(src: string, frame: {width: number, height: number, ratio?: number}): Promise<ImageData>{
+	getimagedata(src: string, frame: {width: number, height: number}): Promise<ImageData>{
 
 		return new Promise((resolve, reject) => {
 
 			try{
 
 				const img = new Image();
-				const ratio = frame.ratio || 1;
 
 				img.crossOrigin = 'Anonymous';
 
@@ -81,8 +80,8 @@ export default {
 					const canvas    = document.createElement('canvas');
 					const finalSize = {
 
-						width : frame.width ? frame.width : img.width * ratio,
-						height: frame.height ? frame.height : img.height * ratio
+						width : frame.width || img.width,
+						height: frame.height || img.height
 
 					};
 
@@ -311,4 +310,3 @@ export default {
 	}
 
 };
-
