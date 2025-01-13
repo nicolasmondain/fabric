@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.23.2",
-    "@babel/node": "7.22.19",
+    "@babel/node": "7.26.0",
     "@babel/preset-env": "7.22.20",
     "@babel/register": "7.17.7",
     "@nicolasmondain/eslint-config": "2.1.1",
