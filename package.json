@@ -46,7 +46,7 @@
     "@types/fabric": "5.3.9",
     "@types/emscripten": "1.39.10",
     "@types/jsdom": "16.2.14",
-    "@types/mocha": "10.0.3",
+    "@types/mocha": "10.0.10",
     "@types/node": "22.10.2",
     "@typescript-eslint/eslint-plugin": "6.9.0",
     "@typescript-eslint/parser": "6.20.0",
