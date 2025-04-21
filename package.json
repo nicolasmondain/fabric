@@ -58,7 +58,7 @@
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "7.2.1",
-    "fabric": "5.5.1",
+    "fabric": "6.6.4",
     "jsdom": "26.1.0",
     "jsdom-global": "3.0.2",
     "mocha": "11.1.0",
