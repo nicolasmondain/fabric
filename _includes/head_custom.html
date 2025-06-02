@@ -1,7 +1,0 @@
-{% for javascript in page.js %}
-    <script src="{{ javascript  | replace: '../../', 'https://raw.githack.com/nicolasmondain/fabric/master/docs/' }}" crossorigin="anonymous"></script>
-{% endfor %}
-
-{% for css in page.css %}
-    <link href="{{ css  | replace: '../../', 'https://raw.githack.com/nicolasmondain/fabric/master/docs/' }}" rel="stylesheet">
-{% endfor %}
