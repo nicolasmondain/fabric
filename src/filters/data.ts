@@ -1,4 +1,4 @@
-import {filtersDataModule} from '../@types';
+import { filtersDataModule } from '../@types';
 
 import brannan from './data/brannan';
 import colorscheme1 from './data/colorscheme1';
@@ -12,16 +12,14 @@ import nineteenseventeen from './data/nineteenseventeen';
 import xproii from './data/xproii';
 
 export default {
-
-	brannan,
-	gotham,
-	hefe,
-	lordkelvin,
-	colorscheme1,
-	colorscheme2,
-	colorscheme3,
-	nashville,
-	nineteenseventeen,
-	xproii
-
+  brannan,
+  gotham,
+  hefe,
+  lordkelvin,
+  colorscheme1,
+  colorscheme2,
+  colorscheme3,
+  nashville,
+  nineteenseventeen,
+  xproii,
 } as filtersDataModule;

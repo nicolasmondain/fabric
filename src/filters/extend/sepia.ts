@@ -1,16 +1,14 @@
 /* eslint-disable max-lines-per-function */
 
-import {filtersApplyTo2dOptions, homothetic, library} from '../../@types';
+import { filtersApplyTo2dOptions, homothetic, library } from '../../@types';
 
 import globals from '../globals';
 import methods from '../methods';
 
 export const sepia = (fabric: library) => {
-
-	fabric.Image.filters.sepia = fabric.util.createClass(fabric.Image.filters.BaseFilter, {
-
-		type          : 'sepia',
-		fragmentSource: `
+  fabric.Image.filters.sepia = fabric.util.createClass(fabric.Image.filters.BaseFilter, {
+    type: 'sepia',
+    fragmentSource: `
 
 			precision highp float;
 			uniform sampler2D uTexture;
@@ -33,69 +31,61 @@ export const sepia = (fabric: library) => {
 			}
 
 		`,
-		useBy        : '',
-		homothetic   : globals.HOMOTHETIC_DEFAULT as homothetic,
-		mainParameter: 'useBy',
-		process      : 'current',
-		configuration: {},
-		description  : '',
-		applyTo2d(options: filtersApplyTo2dOptions){
+    useBy: '',
+    homothetic: globals.HOMOTHETIC_DEFAULT as homothetic,
+    mainParameter: 'useBy',
+    process: 'current',
+    configuration: {},
+    description: '',
+    applyTo2d(options: filtersApplyTo2dOptions) {
+      const { data } = this.process === 'current' ? options.imageData : options.originalImageData;
+      const n = data.length;
 
-			const {data} = this.process === 'current' ? options.imageData : options.originalImageData;
-			const n      = data.length;
+      for (let i = 0; i < n; i += 4) {
+        if (
+          methods.applytothecurrenti(
+            i,
+            this.homothetic.x,
+            this.homothetic.y,
+            this.homothetic.w,
+            this.homothetic.h,
+            options.sourceWidth
+          )
+        ) {
+          const r = data[i + 2] * 0.189 + data[i + 1] * 0.769 + data[i] * 0.393;
+          const g = data[i + 2] * 0.168 + data[i + 1] * 0.686 + data[i] * 0.349;
+          const b = data[i + 2] * 0.131 + data[i + 1] * 0.534 + data[i] * 0.272;
 
-			for(let i = 0; i < n; i += 4){
+          data[i] = r;
+          data[i + 1] = g;
+          data[i + 2] = b;
 
-				if(methods.applytothecurrenti(i, this.homothetic.x, this.homothetic.y, this.homothetic.w, this.homothetic.h, options.sourceWidth)){
+          if (data[i] > 255) {
+            data[i] = 255;
+          }
 
-					const r = (data[i + 2] * 0.189) + (data[i + 1] * 0.769) + (data[i] * 0.393);
-					const g = (data[i + 2] * 0.168) + (data[i + 1] * 0.686) + (data[i] * 0.349);
-					const b = (data[i + 2] * 0.131) + (data[i + 1] * 0.534) + (data[i] * 0.272);
+          if (data[i + 1] > 255) {
+            data[i + 1] = 255;
+          }
 
-					data[i]     = r;
-					data[i + 1] = g;
-					data[i + 2] = b;
+          if (data[i + 2] > 255) {
+            data[i + 2] = 255;
+          }
+        }
+      }
+    },
+    getUniformLocations(gl: WebGLRenderingContext, program: WebGLProgram) {
+      return {
+        uHomothetic: gl.getUniformLocation(program, 'uHomothetic'),
+      };
+    },
+    sendUniformData(
+      gl: WebGLRenderingContext,
+      uniformLocations: { [key: string]: WebGLUniformLocation }
+    ) {
+      gl.uniform1f(uniformLocations.uHomothetic, this.homothetic || globals.HOMOTHETIC_DEFAULT);
+    },
+  });
 
-					if(data[i] > 255){
-
-						data[i] = 255;
-
-					}
-
-					if(data[i + 1] > 255){
-
-						data[i + 1] = 255;
-
-					}
-
-					if(data[i + 2] > 255){
-
-						data[i + 2] = 255;
-
-					}
-
-				}
-
-			}
-
-		},
-		getUniformLocations(gl: WebGLRenderingContext, program: WebGLProgram){
-
-			return{
-
-				uHomothetic: gl.getUniformLocation(program, 'uHomothetic')
-
-			};
-
-		},
-		sendUniformData(gl: WebGLRenderingContext, uniformLocations: {[key: string]: WebGLUniformLocation}){
-
-			gl.uniform1f(uniformLocations.uHomothetic, this.homothetic || globals.HOMOTHETIC_DEFAULT);
-
-		}
-
-	});
-
-	fabric.Image.filters.sepia.fromObject = fabric.Image.filters.BaseFilter.fromObject;
-
+  fabric.Image.filters.sepia.fromObject = fabric.Image.filters.BaseFilter.fromObject;
 };

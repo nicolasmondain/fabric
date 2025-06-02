@@ -1,16 +1,14 @@
 /* eslint-disable max-lines-per-function */
 
-import {filtersApplyTo2dOptions, filtersDataObject, homothetic, library} from '../../@types';
+import { filtersApplyTo2dOptions, filtersDataObject, homothetic, library } from '../../@types';
 
 import globals from '../globals';
 import methods from '../methods';
 
 export const matrice = (fabric: library) => {
-
-	fabric.Image.filters.matrice = fabric.util.createClass(fabric.Image.filters.BaseFilter, {
-
-		type          : 'matrice',
-		fragmentSource: `
+  fabric.Image.filters.matrice = fabric.util.createClass(fabric.Image.filters.BaseFilter, {
+    type: 'matrice',
+    fragmentSource: `
 
 			precision highp float;
 			uniform sampler2D uTexture;
@@ -54,54 +52,52 @@ export const matrice = (fabric: library) => {
 			}
 
 		`,
-		useBy        : '',
-		homothetic   : globals.HOMOTHETIC_DEFAULT as homothetic,
-		json         : {} as filtersDataObject,
-		mainParameter: 'useBy',
-		process      : 'current',
-		configuration: {json: 'filtersDataObject'},
-		description  : '',
-		applyTo2d(options: filtersApplyTo2dOptions){
+    useBy: '',
+    homothetic: globals.HOMOTHETIC_DEFAULT as homothetic,
+    json: {} as filtersDataObject,
+    mainParameter: 'useBy',
+    process: 'current',
+    configuration: { json: 'filtersDataObject' },
+    description: '',
+    applyTo2d(options: filtersApplyTo2dOptions) {
+      const { data } = this.process === 'current' ? options.imageData : options.originalImageData;
+      const n = data.length;
 
-			const {data} = this.process === 'current' ? options.imageData : options.originalImageData;
-			const n      = data.length;
+      for (let i = 0; i < n; i += 4) {
+        if (
+          methods.applytothecurrenti(
+            i,
+            this.homothetic.x,
+            this.homothetic.y,
+            this.homothetic.w,
+            this.homothetic.h,
+            options.sourceWidth
+          )
+        ) {
+          data[i] = this.json.r[data[i]];
+          data[i + 1] = this.json.g[data[i + 1]];
+          data[i + 2] = this.json.b[data[i + 2]];
+        }
+      }
+    },
+    getUniformLocations(gl: WebGLRenderingContext, program: WebGLProgram) {
+      return {
+        uHomothetic: gl.getUniformLocation(program, 'uHomothetic'),
+        uJsonR: gl.getUniformLocation(program, 'uJsonR'),
+        uJsonG: gl.getUniformLocation(program, 'uJsonG'),
+        uJsonB: gl.getUniformLocation(program, 'uJsonB'),
+      };
+    },
+    sendUniformData(
+      gl: WebGLRenderingContext,
+      uniformLocations: { [key: string]: WebGLUniformLocation }
+    ) {
+      gl.uniform1f(uniformLocations.uHomothetic, this.homothetic || globals.HOMOTHETIC_DEFAULT);
+      gl.uniform1fv(uniformLocations.uJsonR, this.json?.r || []);
+      gl.uniform1fv(uniformLocations.uJsonG, this.json?.g || []);
+      gl.uniform1fv(uniformLocations.uJsonB, this.json?.b || []);
+    },
+  });
 
-			for(let i = 0; i < n; i += 4){
-
-				if(methods.applytothecurrenti(i, this.homothetic.x, this.homothetic.y, this.homothetic.w, this.homothetic.h, options.sourceWidth)){
-
-					data[i]     = this.json.r[data[i]];
-					data[i + 1] = this.json.g[data[i + 1]];
-					data[i + 2] = this.json.b[data[i + 2]];
-
-				}
-
-			}
-
-		},
-		getUniformLocations(gl: WebGLRenderingContext, program: WebGLProgram){
-
-			return{
-
-				uHomothetic: gl.getUniformLocation(program, 'uHomothetic'),
-				uJsonR     : gl.getUniformLocation(program, 'uJsonR'),
-				uJsonG     : gl.getUniformLocation(program, 'uJsonG'),
-				uJsonB     : gl.getUniformLocation(program, 'uJsonB')
-
-			};
-
-		},
-		sendUniformData(gl: WebGLRenderingContext, uniformLocations: {[key: string]: WebGLUniformLocation}){
-
-			gl.uniform1f(uniformLocations.uHomothetic, this.homothetic || globals.HOMOTHETIC_DEFAULT);
-			gl.uniform1fv(uniformLocations.uJsonR, this.json?.r || []);
-			gl.uniform1fv(uniformLocations.uJsonG, this.json?.g || []);
-			gl.uniform1fv(uniformLocations.uJsonB, this.json?.b || []);
-
-		}
-
-	});
-
-	fabric.Image.filters.matrice.fromObject = fabric.Image.filters.BaseFilter.fromObject;
-
+  fabric.Image.filters.matrice.fromObject = fabric.Image.filters.BaseFilter.fromObject;
 };

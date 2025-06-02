@@ -1,16 +1,14 @@
 /* eslint-disable max-lines-per-function */
 
-import {filtersApplyTo2dOptions, homothetic, library} from '../../@types';
+import { filtersApplyTo2dOptions, homothetic, library } from '../../@types';
 
 import globals from '../globals';
 import methods from '../methods';
 
 export const desaturate = (fabric: library) => {
-
-	fabric.Image.filters.desaturate = fabric.util.createClass(fabric.Image.filters.BaseFilter, {
-
-		type          : 'desaturate',
-		fragmentSource: `
+  fabric.Image.filters.desaturate = fabric.util.createClass(fabric.Image.filters.BaseFilter, {
+    type: 'desaturate',
+    fragmentSource: `
 
 			precision highp float;
 			uniform sampler2D uTexture;
@@ -31,49 +29,47 @@ export const desaturate = (fabric: library) => {
 			}
 
 		`,
-		useBy        : '',
-		homothetic   : globals.HOMOTHETIC_DEFAULT as homothetic,
-		mainParameter: 'useBy',
-		process      : 'current',
-		configuration: {},
-		description  : '',
-		applyTo2d(options: filtersApplyTo2dOptions){
+    useBy: '',
+    homothetic: globals.HOMOTHETIC_DEFAULT as homothetic,
+    mainParameter: 'useBy',
+    process: 'current',
+    configuration: {},
+    description: '',
+    applyTo2d(options: filtersApplyTo2dOptions) {
+      const { data } = this.process === 'current' ? options.imageData : options.originalImageData;
+      const n = data.length;
 
-			const {data} = this.process === 'current' ? options.imageData : options.originalImageData;
-			const n      = data.length;
+      for (let i = 0; i < n; i += 4) {
+        if (
+          methods.applytothecurrenti(
+            i,
+            this.homothetic.x,
+            this.homothetic.y,
+            this.homothetic.w,
+            this.homothetic.h,
+            options.sourceWidth
+          )
+        ) {
+          const average = (data[i] + data[i + 1] + data[i + 2]) / 3;
 
-			for(let i = 0; i < n; i += 4){
+          data[i] += Math.max(0, Math.round(average - data[i]));
+          data[i + 1] += Math.max(0, Math.round(average - data[i + 1]));
+          data[i + 2] += Math.max(0, Math.round(average - data[i + 2]));
+        }
+      }
+    },
+    getUniformLocations(gl: WebGLRenderingContext, program: WebGLProgram) {
+      return {
+        uHomothetic: gl.getUniformLocation(program, 'uHomothetic'),
+      };
+    },
+    sendUniformData(
+      gl: WebGLRenderingContext,
+      uniformLocations: { [key: string]: WebGLUniformLocation }
+    ) {
+      gl.uniform1f(uniformLocations.uHomothetic, this.homothetic || globals.HOMOTHETIC_DEFAULT);
+    },
+  });
 
-				if(methods.applytothecurrenti(i, this.homothetic.x, this.homothetic.y, this.homothetic.w, this.homothetic.h, options.sourceWidth)){
-
-					const average = (data[i] + data[i + 1] + data[i + 2]) / 3;
-
-					data[i]      += Math.max(0, Math.round(average - data[i]));
-					data[i + 1]  += Math.max(0, Math.round(average - data[i + 1]));
-					data[i + 2]  += Math.max(0, Math.round(average - data[i + 2]));
-
-				}
-
-			}
-
-		},
-		getUniformLocations(gl: WebGLRenderingContext, program: WebGLProgram){
-
-			return{
-
-				uHomothetic: gl.getUniformLocation(program, 'uHomothetic')
-
-			};
-
-		},
-		sendUniformData(gl: WebGLRenderingContext, uniformLocations: {[key: string]: WebGLUniformLocation}){
-
-			gl.uniform1f(uniformLocations.uHomothetic, this.homothetic || globals.HOMOTHETIC_DEFAULT);
-
-		}
-
-	});
-
-	fabric.Image.filters.desaturate.fromObject = fabric.Image.filters.BaseFilter.fromObject;
-
+  fabric.Image.filters.desaturate.fromObject = fabric.Image.filters.BaseFilter.fromObject;
 };

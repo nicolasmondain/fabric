@@ -1,17 +1,21 @@
 /* eslint-disable max-lines-per-function, array-element-newline */
 
-import {fabricImage, filtersApplyTo2dOptions, filtersApplyToWebglOptions, homothetic, library} from '../../@types';
-import {WebglFilterBackend} from 'fabric/fabric-impl';
+import {
+  fabricImage,
+  filtersApplyTo2dOptions,
+  filtersApplyToWebglOptions,
+  homothetic,
+  library,
+} from '../../@types';
+import { WebglFilterBackend } from 'fabric/fabric-impl';
 
 import globals from '../globals';
 import methods from '../methods';
 
 export const pinlight = (fabric: library) => {
-
-	fabric.Image.filters.pinlight = fabric.util.createClass(fabric.Image.filters.BaseFilter, {
-
-		type        : 'pinlight',
-		vertexSource: `
+  fabric.Image.filters.pinlight = fabric.util.createClass(fabric.Image.filters.BaseFilter, {
+    type: 'pinlight',
+    vertexSource: `
 
 			attribute vec2 aPosition;
 			varying vec2 vTexCoord;
@@ -27,7 +31,7 @@ export const pinlight = (fabric: library) => {
 			}
 
 		`,
-		fragmentSource: `
+    fragmentSource: `
 
 			precision highp float;
 			uniform sampler2D uTexture;
@@ -61,139 +65,115 @@ export const pinlight = (fabric: library) => {
 			}
 
 		`,
-		useBy        : '',
-		homothetic   : globals.HOMOTHETIC_DEFAULT as homothetic,
-		imageData2   : null,
-		mainParameter: 'useBy',
-		process      : 'current',
-		configuration: {imageData2: 'HTMLImageElement'},
-		description  : '',
-		matrix       : [
+    useBy: '',
+    homothetic: globals.HOMOTHETIC_DEFAULT as homothetic,
+    imageData2: null,
+    mainParameter: 'useBy',
+    process: 'current',
+    configuration: { imageData2: 'HTMLImageElement' },
+    description: '',
+    matrix: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+    applyTo2d(options: filtersApplyTo2dOptions) {
+      const { data } = this.process === 'current' ? options.imageData : options.originalImageData;
+      const n = data.length;
+      const data2 = this.imageData2.data;
+      const m = data2.length;
 
-			1, 0, 0, 0,
-			0, 1, 0, 0,
-			0, 0, 1, 0,
-			0, 0, 0, 1
+      if (n === m) {
+        for (let i = 0; i < n; i += 4) {
+          if (
+            methods.applytothecurrenti(
+              i,
+              this.homothetic.x,
+              this.homothetic.y,
+              this.homothetic.w,
+              this.homothetic.h,
+              options.sourceWidth
+            )
+          ) {
+            data[i] =
+              data2[i] < 128
+                ? methods.onecolordarken(data[i], 2 * data2[i])
+                : methods.onecolorlighten(data[i], 2 * (data2[i] - 128));
+            data[i + 1] =
+              data2[i + 1] < 128
+                ? methods.onecolordarken(data[i + 1], 2 * data2[i + 1])
+                : methods.onecolorlighten(data[i + 1], 2 * (data2[i + 1] - 128));
+            data[i + 2] =
+              data2[i + 2] < 128
+                ? methods.onecolordarken(data[i + 2], 2 * data2[i + 2])
+                : methods.onecolorlighten(data[i + 2], 2 * (data2[i + 2] - 128));
+          }
+        }
+      }
+    },
+    retrieveFragmentSource(replaces: Array<{ search: string; replace: any }>) {
+      let { fragmentSource } = this;
 
-		],
-		applyTo2d(options: filtersApplyTo2dOptions){
+      for (let i = 0; i < replaces.length; i += 1) {
+        fragmentSource = fragmentSource.replace(
+          new RegExp(replaces[i].search, 'gu'),
+          replaces[i].replace
+        );
+      }
 
-			const {data} = this.process === 'current' ? options.imageData : options.originalImageData;
-			const n      = data.length;
-			const data2  = this.imageData2.data;
-			const m      = data2.length;
+      return fragmentSource;
+    },
+    retrieveShader(options: filtersApplyToWebglOptions) {
+      if (typeof this.retrieveFragmentSource === 'function') {
+        this.fragmentSource = this.retrieveFragmentSource([
+          { search: '__OPTIONS_SOURCEWIDTH__', replace: `${options.sourceWidth}.0` },
+          { search: '__OPTIONS_SOURCEHEIGHT__', replace: `${options.sourceHeight}.0` },
+        ]);
+      }
 
-			if(n === m){
+      const cacheKey = `${this.type}-${this.useBy}-${this.homothetic.x}-${this.homothetic.y}-${this.homothetic.w}-${this.homothetic.h}`;
 
-				for(let i = 0; i < n; i += 4){
+      if (!Object.prototype.hasOwnProperty.call(options.programCache, cacheKey)) {
+        options.programCache[cacheKey] = this.createProgram(options.context, this.fragmentSource);
+      }
 
-					if(methods.applytothecurrenti(i, this.homothetic.x, this.homothetic.y, this.homothetic.w, this.homothetic.h, options.sourceWidth)){
+      return options.programCache[cacheKey];
+    },
+    calculateMatrix() {
+      return this.matrix;
+    },
+    applyTo(options: filtersApplyToWebglOptions) {
+      if (options.webgl === true) {
+        this._setupFrameBuffer(options);
+        this.applyToWebGL(options);
+        this._swapTextures(options);
+      } else {
+        this.applyTo2d(options);
+      }
+    },
+    applyToWebGL(options: filtersApplyToWebglOptions) {
+      const gl = options.context;
+      const texture = this.createTexture(options.filterBackend, this.imageData2);
 
-						data[i]     = data2[i] < 128 ? methods.onecolordarken(data[i], 2 * data2[i]) : methods.onecolorlighten(data[i], 2 * (data2[i] - 128));
-						data[i + 1] = data2[i + 1] < 128 ? methods.onecolordarken(data[i + 1], 2 * data2[i + 1]) : methods.onecolorlighten(data[i + 1], 2 * (data2[i + 1] - 128));
-						data[i + 2] = data2[i + 2] < 128 ? methods.onecolordarken(data[i + 2], 2 * data2[i + 2]) : methods.onecolorlighten(data[i + 2], 2 * (data2[i + 2] - 128));
+      this.bindAdditionalTexture(gl, texture, gl.TEXTURE1);
+      this.callSuper('applyToWebGL', options);
+      this.unbindAdditionalTexture(gl, gl.TEXTURE1);
+    },
+    createTexture(backend: WebglFilterBackend, image: fabricImage) {
+      const cacheKey = `${this.type}-${this.useBy}-${this.homothetic.x}-${this.homothetic.y}-${this.homothetic.w}-${this.homothetic.h}`;
 
-					}
+      return backend.getCachedTexture(cacheKey, image);
+    },
+    getUniformLocations(gl: WebGLRenderingContext, program: WebGLProgram) {
+      return {
+        uImageData2: gl.getUniformLocation(program, 'uImageData2'),
+        uTransformMatrix: gl.getUniformLocation(program, 'uTransformMatrix'),
+      };
+    },
+    sendUniformData(
+      gl: WebGLRenderingContext,
+      uniformLocations: { [key: string]: WebGLUniformLocation }
+    ) {
+      gl.uniform1i(uniformLocations.uImageData2, 1);
+      gl.uniformMatrix4fv(uniformLocations.uTransformMatrix, false, this.calculateMatrix());
+    },
+  });
 
-				}
-
-			}
-
-		},
-		retrieveFragmentSource(replaces: Array<{search: string, replace: any}>){
-
-			let {fragmentSource} = this;
-
-			for(let i = 0; i < replaces.length; i += 1){
-
-				fragmentSource = fragmentSource.replace(new RegExp(replaces[i].search, 'gu'), replaces[i].replace);
-
-			}
-
-			return fragmentSource;
-
-		},
-		retrieveShader(options: filtersApplyToWebglOptions){
-
-			if(typeof this.retrieveFragmentSource === 'function'){
-
-				this.fragmentSource = this.retrieveFragmentSource([
-
-					{search: '__OPTIONS_SOURCEWIDTH__', replace: `${options.sourceWidth}.0`},
-					{search: '__OPTIONS_SOURCEHEIGHT__', replace: `${options.sourceHeight}.0`}
-
-				]);
-
-			}
-
-			const cacheKey = `${this.type}-${this.useBy}-${this.homothetic.x}-${this.homothetic.y}-${this.homothetic.w}-${this.homothetic.h}`;
-
-			if(!Object.prototype.hasOwnProperty.call(options.programCache, cacheKey)){
-
-				options.programCache[cacheKey] = this.createProgram(options.context, this.fragmentSource);
-
-			}
-
-			return options.programCache[cacheKey];
-
-		},
-		calculateMatrix(){
-
-			return this.matrix;
-
-		},
-		applyTo(options: filtersApplyToWebglOptions){
-
-			if(options.webgl === true){
-
-				this._setupFrameBuffer(options);
-				this.applyToWebGL(options);
-				this._swapTextures(options);
-
-			}else{
-
-				this.applyTo2d(options);
-
-			}
-
-		},
-		applyToWebGL(options: filtersApplyToWebglOptions){
-
-			const gl      = options.context;
-			const texture = this.createTexture(options.filterBackend, this.imageData2);
-
-			this.bindAdditionalTexture(gl, texture, gl.TEXTURE1);
-			this.callSuper('applyToWebGL', options);
-			this.unbindAdditionalTexture(gl, gl.TEXTURE1);
-
-		},
-		createTexture(backend: WebglFilterBackend, image: fabricImage){
-
-			const cacheKey = `${this.type}-${this.useBy}-${this.homothetic.x}-${this.homothetic.y}-${this.homothetic.w}-${this.homothetic.h}`;
-
-			return backend.getCachedTexture(cacheKey, image);
-
-		},
-		getUniformLocations(gl: WebGLRenderingContext, program: WebGLProgram){
-
-			return{
-
-				uImageData2     : gl.getUniformLocation(program, 'uImageData2'),
-				uTransformMatrix: gl.getUniformLocation(program, 'uTransformMatrix')
-
-			};
-
-		},
-		sendUniformData(gl: WebGLRenderingContext, uniformLocations: {[key: string]: WebGLUniformLocation}){
-
-			gl.uniform1i(uniformLocations.uImageData2, 1);
-			gl.uniformMatrix4fv(uniformLocations.uTransformMatrix, false, this.calculateMatrix());
-
-		}
-
-	});
-
-	fabric.Image.filters.pinlight.fromObject = fabric.Image.filters.BaseFilter.fromObject;
-
+  fabric.Image.filters.pinlight.fromObject = fabric.Image.filters.BaseFilter.fromObject;
 };
-
